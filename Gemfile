@@ -2,10 +2,13 @@ source "https://rubygems.org"
 ruby "3.3.5"
 
 gem "rails", "~> 7.2.1", ">= 7.2.1.1"
-gem "pg", "~> 1.1"
-gem "puma", ">= 5.0"
+
 gem "importmap-rails"
 gem "jbuilder"
+gem "ostruct" # <-- silence pry warning
+gem "pg", "~> 1.1"
+gem "pry-rails"
+gem "puma", ">= 5.0"
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
