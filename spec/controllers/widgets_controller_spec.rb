@@ -48,4 +48,29 @@ RSpec.describe Api::WidgetsController do
       expect(widget_data["name"]).to eq "test"
     end
   end
+
+  context '#update' do
+    it 'returns an OK status code and renders the correct template' do
+      widget = Widget.create!(name: "test")
+      put :update, params: { id: widget.id, widget: { name: "test2" } }
+      expect(response.status).to eq(200)
+      expect(response).to render_template('api/widgets/show', formats: [ :json ], handlers: [ :jbuilder ])
+    end
+
+    it 'updates a widget' do
+      widget = Widget.create!(name: "test")
+      put :update, params: { id: widget.id, widget: { name: "test2" } }
+      widget_data = JSON.parse(response.body)["widget"]
+      expect(widget_data["name"]).to eq "test2"
+    end
+
+    it 'does not update a widget with a blank name' do
+      widget = Widget.create!(name: "test")
+      put :update, params: { id: widget.id, widget: { name: "" } }
+      expect(response.status).to eq(422)
+      expect(widget.name).to eq "test"
+      errors = JSON.parse(response.body)["errors"]
+      expect(errors["name"]).to eq [ "Name can't be blank" ]
+    end
+  end
 end

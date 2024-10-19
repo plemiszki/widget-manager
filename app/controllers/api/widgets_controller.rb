@@ -1,4 +1,6 @@
 class Api::WidgetsController < ActionController::API
+  include RenderErrors
+
   def index
     @widgets = Widget.all
     render "index", formats: [ :json ], handlers: [ :jbuilder ]
@@ -20,7 +22,7 @@ class Api::WidgetsController < ActionController::API
 
   def update
     @widget = Widget.find(params[:id])
-    if @widget.save
+    if @widget.update(widget_params)
       render "show", formats: [ :json ], handlers: [ :jbuilder ]
     else
       render_errors(@widget)
