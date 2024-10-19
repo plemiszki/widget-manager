@@ -7,7 +7,7 @@ RSpec.describe Api::WidgetsController do
     it 'returns an OK status code and renders the correct template' do
       get :index
       expect(response.status).to eq(200)
-      expect(response).to render_template('api/widgets/index', formats: [:json], handlers: [:jbuilder])
+      expect(response).to render_template('api/widgets/index', formats: [ :json ], handlers: [ :jbuilder ])
     end
 
     it 'returns all widgets' do
@@ -19,4 +19,19 @@ RSpec.describe Api::WidgetsController do
     end
   end
 
+  context '#show' do
+    it 'returns an OK status code and renders the correct template' do
+      widget = Widget.create!(name: "test")
+      get :show, params: { id: widget.id }
+      expect(response.status).to eq(200)
+      expect(response).to render_template('api/widgets/show', formats: [ :json ], handlers: [ :jbuilder ])
+    end
+
+    it 'returns details about a widget' do
+      widget = Widget.create!(name: "test")
+      get :show, params: { id: widget.id }
+      widget_data = JSON.parse(response.body)["widget"]
+      expect(widget_data["name"]).to eq "test"
+    end
+  end
 end
