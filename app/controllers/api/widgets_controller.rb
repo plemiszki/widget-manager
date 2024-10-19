@@ -5,7 +5,7 @@ class Api::WidgetsController < ActionController::API
   end
 
   def create
-    @widget = Booker.new(booker_params)
+    @widget = Widget.new(widget_params)
     if @widget.save
       render "show", formats: [ :json ], handlers: [ :jbuilder ]
     else

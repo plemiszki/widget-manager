@@ -19,6 +19,20 @@ RSpec.describe Api::WidgetsController do
     end
   end
 
+  context '#create' do
+    it 'returns an OK status code and renders the correct template' do
+      post :create, params: { widget: { name: "test" } }
+      expect(response.status).to eq(200)
+      expect(response).to render_template('api/widgets/show', formats: [ :json ], handlers: [ :jbuilder ])
+    end
+
+    it 'returns details about the new widget' do
+      post :create, params: { widget: { name: "test" } }
+      widget_data = JSON.parse(response.body)["widget"]
+      expect(widget_data["name"]).to eq "test"
+    end
+  end
+
   context '#show' do
     it 'returns an OK status code and renders the correct template' do
       widget = Widget.create!(name: "test")
