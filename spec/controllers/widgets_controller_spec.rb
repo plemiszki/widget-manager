@@ -73,4 +73,18 @@ RSpec.describe Api::WidgetsController do
       expect(errors["name"]).to eq [ "Name can't be blank" ]
     end
   end
+
+  context "#delete" do
+    it 'returns an OK status code' do
+      widget = Widget.create!(name: "test")
+      delete :destroy, params: { id: widget.id }
+      expect(response.status).to eq(200)
+    end
+
+    it 'deletes a widget' do
+      widget = Widget.create!(name: "test")
+      delete :destroy, params: { id: widget.id }
+      expect(Widget.count).to eq(0)
+    end
+  end
 end
