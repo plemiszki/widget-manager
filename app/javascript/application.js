@@ -1,1 +1,2 @@
-import "./bundle";
+import "custom";
+import "bundle2";

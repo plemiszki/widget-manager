@@ -1,2 +1,3 @@
 pin "application"
-pin "bundle", to: "bundle.js"
+pin "custom", to: "custom.js"
+pin "bundle2", to: "bundle2.js"
