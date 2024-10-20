@@ -4,7 +4,7 @@ import { createRoot } from "react-dom/client";
 console.log("hi");
 
 function App() {
-  const hello: string = "hi";
+  const hello: string = "heyooooo";
   return <div>{hello}</div>;
 }
 
