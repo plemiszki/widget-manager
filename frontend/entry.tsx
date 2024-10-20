@@ -5,7 +5,12 @@ console.log("hi");
 
 function App() {
   const hello: string = "heyooooo";
-  return <div>{hello}</div>;
+  const n: number = 2;
+  return (
+    <div>
+      {hello} {n}
+    </div>
+  );
 }
 
 const appDiv = document.getElementById("app");
