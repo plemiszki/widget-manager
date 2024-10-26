@@ -1,4 +1,5 @@
 import React from "react";
+import Button from "@mui/material/Button";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider, Link } from "react-router-dom";
 
@@ -20,6 +21,7 @@ function App() {
     <div>
       {hello} {n}
       <Link to={`moo`}>Moo Page</Link>
+      <Button variant="contained">Hello world</Button>
     </div>
   );
 }
