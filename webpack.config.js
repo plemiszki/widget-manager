@@ -21,4 +21,7 @@ module.exports = {
     ],
   },
   devtool: false,
+  resolve: {
+    extensions: [".tsx", ".ts", ".js"],
+  },
 };

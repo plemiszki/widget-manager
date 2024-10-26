@@ -2,15 +2,12 @@ import React from "react";
 import Button from "@mui/material/Button";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider, Link } from "react-router-dom";
+import WidgetsIndex from "./widgets-index";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
-  },
-  {
-    path: "/moo",
-    element: <div>moo</div>,
+    element: <WidgetsIndex />,
   },
 ]);
 
