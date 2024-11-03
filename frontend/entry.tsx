@@ -10,7 +10,7 @@ const router = createBrowserRouter([
     element: <WidgetsIndex />,
   },
   {
-    path: "/details",
+    path: "/widgets/:id",
     element: <WidgetDetails />,
   },
 ]);

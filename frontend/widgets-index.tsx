@@ -9,21 +9,27 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 interface Widget {
+  id: number;
   name: string;
 }
 
 const WIDGETS: Widget[] = [
   {
+    id: 1,
     name: "Widget 1",
   },
   {
+    id: 2,
     name: "Widget 2",
   },
 ];
 
 function WidgetsIndex() {
+  const navigate = useNavigate();
+
   return (
     <>
       <Stack sx={{ m: 2 }} spacing={2}>
@@ -36,9 +42,13 @@ function WidgetsIndex() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {WIDGETS.map(({ name }: Widget) => {
+              {WIDGETS.map(({ id, name }: Widget) => {
                 return (
-                  <TableRow>
+                  <TableRow
+                    key={`row-${id}`}
+                    onClick={() => navigate(`/widgets/${id}`)}
+                    sx={{ cursor: "pointer" }}
+                  >
                     <TableCell>{name}</TableCell>
                   </TableRow>
                 );
