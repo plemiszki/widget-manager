@@ -12,9 +12,7 @@
     "webpack-cli": "^5.1.4"
   },
   "scripts": {
-    "build": "webpack --mode development",
-    "start": "webpack --mode development --watch",
-    "heroku-postbuild": "webpack --mode production"
+    "start": "vite"
   },
   "devDependencies": {
     "@types/react": "^18.3.11",

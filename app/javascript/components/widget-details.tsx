@@ -10,7 +10,7 @@ function WidgetDetails() {
   return (
     <>
       <Stack sx={{ p: 2 }} spacing={2}>
-        <Typography>Widget Details</Typography>
+        <Typography>Widget Details (Test)</Typography>
         <Paper sx={{ width: "100%", p: 2 }}>
           <Typography>{name}</Typography>
         </Paper>
