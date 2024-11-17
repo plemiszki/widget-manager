@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 ruby "3.3.6"
 
-gem "rails", "~> 7.2.1", ">= 7.2.1.1"
+gem "rails", "~> 8.0"
 
 gem "importmap-rails"
 gem "jbuilder"
