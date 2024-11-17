@@ -1,8 +1,8 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import WidgetsIndex from "./widgets-index";
-import WidgetDetails from "./widget-details";
+import WidgetsIndex from "../components/widgets-index";
+import WidgetDetails from "../components/widget-details";
 
 const router = createBrowserRouter([
   {
