@@ -9,6 +9,7 @@ gem "ostruct" # <-- silence pry warning
 gem "pg", "~> 1.1"
 gem "pry-rails"
 gem "puma", ">= 5.0"
+gem "vite_rails"
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
