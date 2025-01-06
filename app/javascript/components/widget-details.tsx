@@ -1,5 +1,6 @@
 import React from "react";
 import { Paper, Stack, Typography } from "@mui/material";
+import CenteredSpinner from "./centered-spinner";
 
 const WIDGET = {
   name: "Widget 1",
@@ -7,6 +8,12 @@ const WIDGET = {
 
 function WidgetDetails() {
   const { name } = WIDGET;
+  const showSpinner = false;
+
+  if (showSpinner) {
+    return <CenteredSpinner />;
+  }
+
   return (
     <>
       <Stack sx={{ p: 2 }} spacing={2}>

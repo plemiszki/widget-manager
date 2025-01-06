@@ -10,6 +10,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import CenteredSpinner from "./centered-spinner";
 
 interface Widget {
   id: number;
@@ -29,6 +30,11 @@ const WIDGETS: Widget[] = [
 
 function WidgetsIndex() {
   const navigate = useNavigate();
+  const showSpinner = false;
+
+  if (showSpinner) {
+    return <CenteredSpinner />;
+  }
 
   return (
     <>
