@@ -4,6 +4,7 @@ import CenteredSpinner from "./centered-spinner";
 import { Widget } from "../types";
 import useGetWidgetDetails from "../api/getWidgetDetails";
 import { useParams } from "react-router-dom";
+import ErrorBanner from "./error-banner";
 
 function WidgetDetails() {
   const { id } = useParams();
@@ -22,6 +23,10 @@ function WidgetDetails() {
 
   if (isLoading) {
     return <CenteredSpinner />;
+  }
+
+  if (isError) {
+    return <ErrorBanner text="There was an error loading the widget." />;
   }
 
   const { name, age } = widget;

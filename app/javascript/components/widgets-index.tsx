@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  Alert,
   Paper,
   Stack,
   Table,
@@ -14,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 import CenteredSpinner from "./centered-spinner";
 import useGetAllWidgets from "../api/getAllWidgets";
 import type { Widget } from "../types";
+import ErrorBanner from "./error-banner";
 
 function WidgetsIndex() {
   const navigate = useNavigate();
@@ -33,9 +33,7 @@ function WidgetsIndex() {
   }
 
   if (isError) {
-    return (
-      <Alert severity="error">There was an error loading the widgets.</Alert>
-    );
+    return <ErrorBanner text="There was an error loading the widgets." />;
   }
 
   return (
