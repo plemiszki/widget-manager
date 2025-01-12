@@ -20,6 +20,10 @@ const router = createBrowserRouter([
     element: <WidgetsIndex />,
   },
   {
+    path: "/widgets",
+    element: <WidgetsIndex />,
+  },
+  {
     path: "/widgets/:id",
     element: <WidgetDetails />,
   },
