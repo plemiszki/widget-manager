@@ -49,7 +49,10 @@ function WidgetDetails() {
         <Typography>name: {name}</Typography>
         <Typography>age: {age}</Typography>
       </Paper>
-      <Stack direction="row">
+      <Stack direction="row" spacing={2}>
+        <Button color="primary" variant="contained">
+          Save
+        </Button>
         <Button
           color="error"
           variant="contained"
