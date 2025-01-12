@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  Alert,
   Paper,
   Stack,
   Table,
@@ -29,6 +30,12 @@ function WidgetsIndex() {
 
   if (isLoading) {
     return <CenteredSpinner />;
+  }
+
+  if (isError) {
+    return (
+      <Alert severity="error">There was an error loading the widgets.</Alert>
+    );
   }
 
   return (
