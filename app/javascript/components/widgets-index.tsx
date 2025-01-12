@@ -11,39 +11,23 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import CenteredSpinner from "./centered-spinner";
-import useGetWidgets from "../api/getWidgets";
+import useGetAllWidgets from "../api/getAllWidgets";
 import type { Widget } from "../types";
-
-const WIDGETS: Widget[] = [
-  {
-    id: 1,
-    name: "Widget 1",
-    age: 10,
-  },
-  {
-    id: 2,
-    name: "Widget 2",
-    age: 20,
-  },
-];
 
 function WidgetsIndex() {
   const navigate = useNavigate();
-  const showSpinner = false;
 
   const {
-    data: widgets = [],
+    data: { widgets } = { widgets: [] },
     isLoading,
     isError,
   }: {
-    data: Widget[];
+    data: { widgets: Widget[] };
     isLoading: boolean;
     isError: boolean;
-  } = useGetWidgets();
+  } = useGetAllWidgets();
 
-  console.log("widgets", widgets);
-
-  if (showSpinner) {
+  if (isLoading) {
     return <CenteredSpinner />;
   }
 
@@ -56,10 +40,11 @@ function WidgetsIndex() {
             <TableHead>
               <TableRow>
                 <TableCell>Name</TableCell>
+                <TableCell>Age</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {WIDGETS.map(({ id, name }: Widget) => {
+              {widgets.map(({ id, name, age }: Widget) => {
                 return (
                   <TableRow
                     key={`row-${id}`}
@@ -67,6 +52,7 @@ function WidgetsIndex() {
                     sx={{ cursor: "pointer" }}
                   >
                     <TableCell>{name}</TableCell>
+                    <TableCell>{age}</TableCell>
                   </TableRow>
                 );
               })}

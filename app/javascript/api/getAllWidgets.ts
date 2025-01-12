@@ -4,16 +4,20 @@ import { Widget } from "../types";
 
 const GET_ALL_WIDGETS_URL = "widgets";
 
-const getAllWidgets = async (): Promise<Widget[]> => {
+interface ApiResponse {
+  widgets: Widget[];
+}
+
+const getAllWidgets = async (): Promise<ApiResponse> => {
   try {
-    const widgets: Widget[] = await getApiData(GET_ALL_WIDGETS_URL);
-    return widgets;
+    const response: ApiResponse = await getApiData(GET_ALL_WIDGETS_URL);
+    return response;
   } catch (e: unknown) {
     throw e;
   }
 };
 
-const useGetWidgets = () => {
+const useGetAllWidgets = () => {
   const query = useQuery({
     queryKey: [GET_ALL_WIDGETS_URL],
     queryFn: getAllWidgets,
@@ -22,4 +26,4 @@ const useGetWidgets = () => {
   return query;
 };
 
-export default useGetWidgets;
+export default useGetAllWidgets;
