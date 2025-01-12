@@ -15,6 +15,7 @@ import { Widget } from "../types";
 import useGetWidgetDetails from "../api/getWidgetDetails";
 import { useParams } from "react-router-dom";
 import ErrorBanner from "./error-banner";
+import CenteredSpinnerPageBlocker from "./centered-spinner-page-blocker";
 
 function WidgetDetails() {
   const { id } = useParams();
@@ -43,43 +44,49 @@ function WidgetDetails() {
   const { name, age } = widget;
 
   return (
-    <Stack sx={{ p: 2 }} spacing={2}>
-      <Typography>Widget Details</Typography>
-      <Paper sx={{ width: "100%", p: 2 }}>
-        <Typography>name: {name}</Typography>
-        <Typography>age: {age}</Typography>
-      </Paper>
-      <Stack direction="row" spacing={2}>
-        <Button color="primary" variant="contained">
-          Save
-        </Button>
-        <Button
-          color="error"
-          variant="contained"
-          onClick={() => setDeleteModalOpen(true)}
-        >
-          Delete
-        </Button>
-      </Stack>
-      <Dialog open={deleteModalOpen} onClose={() => setDeleteModalOpen(false)}>
-        <DialogTitle>Do you really want to delete this widget?</DialogTitle>
-        <DialogContent>
-          <DialogContentText>This action cannot be undone.</DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button color="error" variant="contained">
-            Yes
+    <>
+      {false ? <CenteredSpinnerPageBlocker /> : null}
+      <Stack sx={{ p: 2 }} spacing={2}>
+        <Typography>Widget Details</Typography>
+        <Paper sx={{ width: "100%", p: 2 }}>
+          <Typography>name: {name}</Typography>
+          <Typography>age: {age}</Typography>
+        </Paper>
+        <Stack direction="row" spacing={2}>
+          <Button color="primary" variant="contained">
+            Save
           </Button>
           <Button
-            color="primary"
+            color="error"
             variant="contained"
-            onClick={() => setDeleteModalOpen(false)}
+            onClick={() => setDeleteModalOpen(true)}
           >
-            No
+            Delete
           </Button>
-        </DialogActions>
-      </Dialog>
-    </Stack>
+        </Stack>
+        <Dialog
+          open={deleteModalOpen}
+          onClose={() => setDeleteModalOpen(false)}
+        >
+          <DialogTitle>Do you really want to delete this widget?</DialogTitle>
+          <DialogContent>
+            <DialogContentText>This action cannot be undone.</DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button color="error" variant="contained">
+              Yes
+            </Button>
+            <Button
+              color="primary"
+              variant="contained"
+              onClick={() => setDeleteModalOpen(false)}
+            >
+              No
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </Stack>
+    </>
   );
 }
 
