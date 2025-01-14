@@ -41,6 +41,6 @@ class Api::WidgetsController < ActionController::API
   private
 
   def widget_params
-    params[:widget].permit(:name)
+    params[:widget].permit(:name, :age)
   end
 end

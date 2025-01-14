@@ -18,6 +18,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import ErrorBanner from "./error-banner";
 import CenteredSpinnerPageBlocker from "./centered-spinner-page-blocker";
 import useDeleteWidget from "../api/deleteWidget";
+import useUpdateWidget from "../api/updateWidget";
 
 function WidgetDetails() {
   const navigate = useNavigate();
@@ -60,6 +61,12 @@ function WidgetDetails() {
     isError: isErrorDelete,
   } = useDeleteWidget(id, onDeleteSuccess);
 
+  const {
+    mutateAsync: mutateAsyncUpdate,
+    isPending: isPendingUpdate,
+    isError: isErrorUpdate,
+  } = useUpdateWidget(id);
+
   if (initialLoadPending) {
     return <CenteredSpinner />;
   }
@@ -95,7 +102,13 @@ function WidgetDetails() {
           </Stack>
         </Paper>
         <Stack direction="row" spacing={2}>
-          <Button color="primary" variant="contained">
+          <Button
+            color="primary"
+            variant="contained"
+            onClick={() => {
+              mutateAsyncUpdate({ id, name, age });
+            }}
+          >
             Save
           </Button>
           <Button
