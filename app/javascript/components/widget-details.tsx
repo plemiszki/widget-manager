@@ -61,8 +61,11 @@ function WidgetDetails() {
     <>
       {isPendingDelete ? <CenteredSpinnerPageBlocker /> : null}
       <Stack sx={{ p: 2 }} spacing={2}>
+        {isErrorDelete ? (
+          <ErrorBanner text="There was an error deleting the widget." />
+        ) : null}
         <Typography>Widget Details</Typography>
-        <Paper sx={{ width: "100%", p: 2 }}>
+        <Paper sx={{ p: 2 }}>
           <Typography>name: {name}</Typography>
           <Typography>age: {age}</Typography>
         </Paper>

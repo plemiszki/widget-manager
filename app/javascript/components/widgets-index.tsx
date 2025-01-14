@@ -40,7 +40,7 @@ function WidgetsIndex() {
     <>
       <Stack sx={{ m: 2 }} spacing={2}>
         <Typography>Widgets</Typography>
-        <Paper sx={{ width: "100%" }}>
+        <Paper>
           <Table>
             <TableHead>
               <TableRow>
