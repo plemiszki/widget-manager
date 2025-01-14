@@ -10,7 +10,7 @@ const putApiData = async <T>(
     body: JSON.stringify(body),
   });
   if (response.ok) {
-    onSuccess(response);
+    onSuccess?.(response);
   }
   return await response.json();
 };

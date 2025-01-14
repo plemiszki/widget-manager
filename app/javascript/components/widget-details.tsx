@@ -73,10 +73,15 @@ function WidgetDetails() {
     return <ErrorBanner text="There was an error loading the widget." />;
   }
 
+  const showPageBlocker = isPendingUpdate || isPendingDelete;
+
   return (
     <>
-      {isPendingDelete ? <CenteredSpinnerPageBlocker /> : null}
+      {showPageBlocker ? <CenteredSpinnerPageBlocker /> : null}
       <Stack sx={{ p: 2 }} spacing={2}>
+        {isErrorUpdate ? (
+          <ErrorBanner text="There was an error updating the widget." />
+        ) : null}
         {isErrorDelete ? (
           <ErrorBanner text="There was an error deleting the widget." />
         ) : null}
