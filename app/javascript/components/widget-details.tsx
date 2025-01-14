@@ -29,10 +29,6 @@ function WidgetDetails() {
   const [name, setName] = useState("");
   const [age, setAge] = useState(0);
 
-  const onDeleteSuccess = () => {
-    navigate("/widgets");
-  };
-
   const {
     data: { widget: widgetSaved } = {
       widget: {
@@ -49,23 +45,25 @@ function WidgetDetails() {
     isError: boolean;
   } = useGetWidgetDetails(id);
 
-  useEffect(() => {
-    const { name, age } = widgetSaved ?? {};
-    setName(name);
-    setAge(age);
-  }, [widgetSaved]);
-
-  const {
-    mutateAsync: mutateAsyncDelete,
-    isPending: isPendingDelete,
-    isError: isErrorDelete,
-  } = useDeleteWidget(id, onDeleteSuccess);
-
   const {
     mutateAsync: mutateAsyncUpdate,
     isPending: isPendingUpdate,
     isError: isErrorUpdate,
   } = useUpdateWidget(id);
+
+  const {
+    mutateAsync: mutateAsyncDelete,
+    isPending: isPendingDelete,
+    isError: isErrorDelete,
+  } = useDeleteWidget(id, () => {
+    navigate("/widgets");
+  });
+
+  useEffect(() => {
+    const { name, age } = widgetSaved ?? {};
+    setName(name);
+    setAge(age);
+  }, [widgetSaved]);
 
   if (initialLoadPending) {
     return <CenteredSpinner />;
