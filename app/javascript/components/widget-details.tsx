@@ -13,19 +13,27 @@ import {
 import CenteredSpinner from "./centered-spinner";
 import { Widget } from "../types";
 import useGetWidgetDetails from "../api/getWidgetDetails";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import ErrorBanner from "./error-banner";
 import CenteredSpinnerPageBlocker from "./centered-spinner-page-blocker";
+import useDeleteWidget from "../api/deleteWidget";
 
 function WidgetDetails() {
-  const { id } = useParams();
+  const navigate = useNavigate();
+  const { id: idString } = useParams();
+  const id = parseInt(idString);
+
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+
+  const onDeleteSuccess = () => {
+    navigate("/widgets");
+  };
 
   const {
     data: { widget } = {
       widget: null,
     },
-    isLoading,
+    isLoading: isLoadingGet,
     isError,
   }: {
     data: { widget?: Widget };
@@ -33,7 +41,13 @@ function WidgetDetails() {
     isError: boolean;
   } = useGetWidgetDetails(id);
 
-  if (isLoading) {
+  const {
+    mutateAsync: mutateAsyncDelete,
+    isPending: isPendingDelete,
+    isError: isErrorDelete,
+  } = useDeleteWidget(id, onDeleteSuccess);
+
+  if (isLoadingGet) {
     return <CenteredSpinner />;
   }
 
@@ -45,7 +59,7 @@ function WidgetDetails() {
 
   return (
     <>
-      {false ? <CenteredSpinnerPageBlocker /> : null}
+      {isPendingDelete ? <CenteredSpinnerPageBlocker /> : null}
       <Stack sx={{ p: 2 }} spacing={2}>
         <Typography>Widget Details</Typography>
         <Paper sx={{ width: "100%", p: 2 }}>
@@ -73,7 +87,14 @@ function WidgetDetails() {
             <DialogContentText>This action cannot be undone.</DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button color="error" variant="contained">
+            <Button
+              color="error"
+              variant="contained"
+              onClick={() => {
+                setDeleteModalOpen(false);
+                mutateAsyncDelete(id);
+              }}
+            >
               Yes
             </Button>
             <Button

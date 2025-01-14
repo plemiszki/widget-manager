@@ -17,7 +17,7 @@ const getWidgetDetails = async (id: number): Promise<ApiResponse> => {
   }
 };
 
-const useGetWidgetDetails = (id) => {
+const useGetWidgetDetails = (id: number) => {
   const query = useQuery({
     queryKey: [GET_WIDGET_DETAILS_URL(id)],
     queryFn: () => getWidgetDetails(id),
