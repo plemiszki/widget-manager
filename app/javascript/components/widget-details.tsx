@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Dialog,
@@ -8,6 +8,7 @@ import {
   DialogTitle,
   Paper,
   Stack,
+  TextField,
   Typography,
 } from "@mui/material";
 import CenteredSpinner from "./centered-spinner";
@@ -24,22 +25,34 @@ function WidgetDetails() {
   const id = parseInt(idString);
 
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [name, setName] = useState("");
+  const [age, setAge] = useState(0);
 
   const onDeleteSuccess = () => {
     navigate("/widgets");
   };
 
   const {
-    data: { widget } = {
-      widget: null,
+    data: { widget: widgetSaved } = {
+      widget: {
+        id: null,
+        name: "",
+        age: 0,
+      },
     },
-    isLoading: isLoadingGet,
-    isError,
+    isLoading: initialLoadPending,
+    isError: initialLoadError,
   }: {
     data: { widget?: Widget };
     isLoading: boolean;
     isError: boolean;
   } = useGetWidgetDetails(id);
+
+  useEffect(() => {
+    const { name, age } = widgetSaved ?? {};
+    setName(name);
+    setAge(age);
+  }, [widgetSaved]);
 
   const {
     mutateAsync: mutateAsyncDelete,
@@ -47,15 +60,13 @@ function WidgetDetails() {
     isError: isErrorDelete,
   } = useDeleteWidget(id, onDeleteSuccess);
 
-  if (isLoadingGet) {
+  if (initialLoadPending) {
     return <CenteredSpinner />;
   }
 
-  if (isError) {
+  if (initialLoadError) {
     return <ErrorBanner text="There was an error loading the widget." />;
   }
-
-  const { name, age } = widget;
 
   return (
     <>
@@ -66,8 +77,22 @@ function WidgetDetails() {
         ) : null}
         <Typography>Widget Details</Typography>
         <Paper sx={{ p: 2 }}>
-          <Typography>name: {name}</Typography>
-          <Typography>age: {age}</Typography>
+          <Stack spacing={1}>
+            <Typography>Name:</Typography>
+            <TextField
+              variant="outlined"
+              fullWidth
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+            <Typography>Age:</Typography>
+            <TextField
+              variant="outlined"
+              fullWidth
+              value={age}
+              onChange={(e) => setAge(parseInt(e.target.value))}
+            />
+          </Stack>
         </Paper>
         <Stack direction="row" spacing={2}>
           <Button color="primary" variant="contained">
