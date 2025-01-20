@@ -8,7 +8,6 @@ import {
   DialogTitle,
   Paper,
   Stack,
-  TextField,
   Typography,
 } from "@mui/material";
 import CenteredSpinner from "./library/centered-spinner";
@@ -28,14 +27,14 @@ function WidgetDetails() {
 
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [name, setName] = useState("");
-  const [age, setAge] = useState(0);
+  const [age, setAge] = useState("");
 
   const {
     data: { widget: widgetSaved } = {
       widget: {
         id: null,
         name: "",
-        age: 0,
+        age: "",
       },
     },
     isLoading: initialLoadPending,
@@ -94,12 +93,10 @@ function WidgetDetails() {
               value={name}
               onChange={(value: string) => setName(value)}
             />
-            <Typography>Age:</Typography>
-            <TextField
-              variant="outlined"
-              fullWidth
+            <FieldText
+              label="Age"
               value={age}
-              onChange={(e) => setAge(parseInt(e.target.value))}
+              onChange={(value: string) => setAge(value)}
             />
           </Stack>
         </Paper>

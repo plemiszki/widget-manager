@@ -1,7 +1,7 @@
 interface Widget {
   id: number;
   name: string;
-  age: number;
+  age: string;
 }
 
 export { Widget };
