@@ -19,6 +19,7 @@ import ErrorBanner from "./library/error-banner";
 import CenteredSpinnerPageBlocker from "./library/centered-spinner-page-blocker";
 import useDeleteWidget from "../api/deleteWidget";
 import useUpdateWidget from "../api/updateWidget";
+import FieldText from "./library/field-text";
 
 function WidgetDetails() {
   const navigate = useNavigate();
@@ -88,12 +89,10 @@ function WidgetDetails() {
         <Typography>Widget Details</Typography>
         <Paper sx={{ p: 2 }}>
           <Stack spacing={1}>
-            <Typography>Name:</Typography>
-            <TextField
-              variant="outlined"
-              fullWidth
+            <FieldText
+              label="Name"
               value={name}
-              onChange={(e) => setName(e.target.value)}
+              onChange={(value: string) => setName(value)}
             />
             <Typography>Age:</Typography>
             <TextField
