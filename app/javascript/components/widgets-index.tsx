@@ -10,10 +10,10 @@ import {
   Typography,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import CenteredSpinner from "./centered-spinner";
+import CenteredSpinner from "./library/centered-spinner";
 import useGetAllWidgets from "../api/getAllWidgets";
 import type { Widget } from "../types";
-import ErrorBanner from "./error-banner";
+import ErrorBanner from "./library/error-banner";
 
 function WidgetsIndex() {
   const navigate = useNavigate();

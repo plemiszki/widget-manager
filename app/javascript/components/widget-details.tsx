@@ -11,12 +11,12 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import CenteredSpinner from "./centered-spinner";
+import CenteredSpinner from "./library/centered-spinner";
 import { Widget } from "../types";
 import useGetWidgetDetails from "../api/getWidgetDetails";
 import { useNavigate, useParams } from "react-router-dom";
-import ErrorBanner from "./error-banner";
-import CenteredSpinnerPageBlocker from "./centered-spinner-page-blocker";
+import ErrorBanner from "./library/error-banner";
+import CenteredSpinnerPageBlocker from "./library/centered-spinner-page-blocker";
 import useDeleteWidget from "../api/deleteWidget";
 import useUpdateWidget from "../api/updateWidget";
 
