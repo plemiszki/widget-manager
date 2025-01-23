@@ -6,6 +6,7 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  IconButton,
   Paper,
   Stack,
   Typography,
@@ -19,6 +20,7 @@ import CenteredSpinnerPageBlocker from "./library/centered-spinner-page-blocker"
 import useDeleteWidget from "../api/deleteWidget";
 import useUpdateWidget from "../api/updateWidget";
 import FieldText from "./library/field-text";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 interface ErrorObject {
   name?: string;
@@ -104,7 +106,12 @@ function WidgetDetails() {
         {isErrorDelete ? (
           <ErrorBanner text="There was an error deleting the widget." />
         ) : null}
-        <Typography>Widget Details</Typography>
+        <Stack direction="row" spacing={1} alignItems="center">
+          <IconButton onClick={() => navigate("/widgets")}>
+            <ArrowBackIcon />
+          </IconButton>
+          <Typography>Widget Details</Typography>
+        </Stack>
         <Paper sx={{ p: 2 }}>
           <Stack spacing={1}>
             <FieldText
