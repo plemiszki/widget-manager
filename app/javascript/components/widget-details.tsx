@@ -79,7 +79,6 @@ function WidgetDetails() {
 
   useEffect(() => {
     const { errors } = updateResponse ?? {};
-    console.log(errors);
     if (errors) {
       setErrors(errors);
     }
