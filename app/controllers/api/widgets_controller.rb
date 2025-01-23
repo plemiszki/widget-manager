@@ -9,7 +9,8 @@ class Api::WidgetsController < ActionController::API
   def create
     @widget = Widget.new(widget_params)
     if @widget.save
-      render "show", formats: [ :json ], handlers: [ :jbuilder ]
+      @widgets = Widget.all
+      render "index", formats: [ :json ], handlers: [ :jbuilder ]
     else
       render_errors(@widget)
     end

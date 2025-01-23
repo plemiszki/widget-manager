@@ -1,7 +1,12 @@
 interface Widget {
-  id: number;
+  id?: number;
   name: string;
   age: string;
 }
 
-export { Widget };
+interface WidgetErrors {
+  name?: string;
+  age?: string;
+}
+
+export { Widget, WidgetErrors };

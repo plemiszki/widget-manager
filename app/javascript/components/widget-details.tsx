@@ -12,7 +12,7 @@ import {
   Typography,
 } from "@mui/material";
 import CenteredSpinner from "./library/centered-spinner";
-import { Widget } from "../types";
+import { Widget, WidgetErrors } from "../types";
 import useGetWidgetDetails from "../api/getWidgetDetails";
 import { useNavigate, useParams } from "react-router-dom";
 import ErrorBanner from "./library/error-banner";
@@ -22,17 +22,12 @@ import useUpdateWidget from "../api/updateWidget";
 import FieldText from "./library/field-text";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
-interface ErrorObject {
-  name?: string;
-  age?: string;
-}
-
 function WidgetDetails() {
   const navigate = useNavigate();
   const { id: idString } = useParams();
   const id = parseInt(idString);
 
-  const [errors, setErrors] = useState<ErrorObject>({});
+  const [errors, setErrors] = useState<WidgetErrors>({});
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [name, setName] = useState("");
   const [age, setAge] = useState("");
