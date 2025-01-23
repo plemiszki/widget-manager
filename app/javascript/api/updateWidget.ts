@@ -5,6 +5,10 @@ import putApiData from "./putApiData";
 const UPDATE_WIDGET_URL = (id: number) => `widgets/${id}`;
 
 interface ApiResponse {
+  errors?: {
+    name: string;
+    age: string;
+  };
   widget: Widget;
 }
 

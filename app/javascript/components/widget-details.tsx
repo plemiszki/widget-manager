@@ -20,14 +20,25 @@ import useDeleteWidget from "../api/deleteWidget";
 import useUpdateWidget from "../api/updateWidget";
 import FieldText from "./library/field-text";
 
+interface ErrorObject {
+  name?: string;
+  age?: string;
+}
+
 function WidgetDetails() {
   const navigate = useNavigate();
   const { id: idString } = useParams();
   const id = parseInt(idString);
 
+  const [errors, setErrors] = useState<ErrorObject>({});
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [name, setName] = useState("");
   const [age, setAge] = useState("");
+
+  const clearError = (key: string) => {
+    delete errors[key];
+    setErrors(errors);
+  };
 
   const {
     data: { widget: widgetSaved } = {
@@ -47,6 +58,7 @@ function WidgetDetails() {
 
   const {
     mutateAsync: mutateAsyncUpdate,
+    data: updateResponse,
     isPending: isPendingUpdate,
     isError: isErrorUpdate,
   } = useUpdateWidget(id);
@@ -64,6 +76,14 @@ function WidgetDetails() {
     setName(name);
     setAge(age);
   }, [widgetSaved]);
+
+  useEffect(() => {
+    const { errors } = updateResponse ?? {};
+    console.log(errors);
+    if (errors) {
+      setErrors(errors);
+    }
+  }, [updateResponse]);
 
   if (initialLoadPending) {
     return <CenteredSpinner />;
@@ -92,11 +112,15 @@ function WidgetDetails() {
               label="Name"
               value={name}
               onChange={(value: string) => setName(value)}
+              error={errors?.name}
+              clearError={() => clearError("name")}
             />
             <FieldText
               label="Age"
               value={age}
               onChange={(value: string) => setAge(value)}
+              error={errors?.age}
+              clearError={() => clearError("age")}
             />
           </Stack>
         </Paper>
