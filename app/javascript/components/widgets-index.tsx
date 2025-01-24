@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
   Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
   Paper,
   Stack,
   Table,
@@ -17,24 +13,15 @@ import {
 import { useNavigate } from "react-router-dom";
 import CenteredSpinner from "./library/centered-spinner";
 import useGetAllWidgets from "../api/getAllWidgets";
-import type { Widget, WidgetErrors } from "../types";
+import type { Widget } from "../types";
 import ErrorBanner from "./library/error-banner";
-import FieldText from "./library/field-text";
-import useCreateWidget from "../api/createWidget";
+import WidgetNew from "./widget-new";
 
 function WidgetsIndex() {
   const navigate = useNavigate();
 
   const [widgets, setWidgets] = useState([]);
   const [dialogOpen, setDialogOpen] = useState(false);
-  const [name, setName] = useState("");
-  const [age, setAge] = useState("");
-  const [errors, setErrors] = useState<WidgetErrors>({});
-
-  const clearError = (key: string) => {
-    delete errors[key];
-    setErrors(errors);
-  };
 
   const {
     data: getAllWidgetsData,
@@ -46,13 +33,6 @@ function WidgetsIndex() {
     isError: boolean;
   } = useGetAllWidgets();
 
-  const {
-    mutateAsync: mutateAsyncCreate,
-    data: createWidgetData,
-    isPending: createWidgetPending,
-    isError: createWidgetError,
-  } = useCreateWidget();
-
   useEffect(() => {
     if (!getAllWidgetsData) {
       return;
@@ -60,21 +40,6 @@ function WidgetsIndex() {
     const { widgets } = getAllWidgetsData;
     setWidgets(widgets);
   }, [getAllWidgetsData]);
-
-  useEffect(() => {
-    if (!createWidgetData) {
-      return;
-    }
-    const { widgets, errors } = createWidgetData;
-    if (errors) {
-      setErrors(errors);
-    } else {
-      setDialogOpen(false);
-      setWidgets(widgets);
-      setName("");
-      setAge("");
-    }
-  }, [createWidgetData]);
 
   if (getAllWidgetsLoading) {
     return <CenteredSpinner />;
@@ -117,40 +82,14 @@ function WidgetsIndex() {
             </TableBody>
           </Table>
         </Paper>
-        <Dialog
-          fullWidth
-          open={dialogOpen}
+        <WidgetNew
+          isOpen={dialogOpen}
           onClose={() => setDialogOpen(false)}
-        >
-          <DialogTitle>Add Widget</DialogTitle>
-          <DialogContent>
-            <Stack spacing={1}>
-              <FieldText
-                label="Name"
-                value={name}
-                onChange={(value: string) => setName(value)}
-                error={errors?.name}
-                clearError={() => clearError("name")}
-              />
-              <FieldText
-                label="Age"
-                value={age}
-                onChange={(value: string) => setAge(value)}
-                error={errors?.age}
-                clearError={() => clearError("age")}
-              />
-            </Stack>
-          </DialogContent>
-          <DialogActions>
-            <Button
-              color="primary"
-              variant="contained"
-              onClick={() => mutateAsyncCreate({ name, age })}
-            >
-              Add
-            </Button>
-          </DialogActions>
-        </Dialog>
+          onCreate={(widgets: Widget[]) => {
+            setWidgets(widgets);
+            setDialogOpen(false);
+          }}
+        />
       </Stack>
     </>
   );
