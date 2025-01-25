@@ -29,6 +29,12 @@ function WidgetDetails() {
 
   const [errors, setErrors] = useState<WidgetErrors>({});
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [hasChanges, setHasChanges] = useState(false);
+  const [widgetSaved, setWidgetSaved] = useState({
+    name: "",
+    age: "",
+  });
+  const [justSaved, setJustSaved] = useState(false);
   const [name, setName] = useState("");
   const [age, setAge] = useState("");
 
@@ -38,13 +44,7 @@ function WidgetDetails() {
   };
 
   const {
-    data: { widget: widgetSaved } = {
-      widget: {
-        id: null,
-        name: "",
-        age: "",
-      },
-    },
+    data: getResponse,
     isLoading: initialLoadPending,
     isError: initialLoadError,
   }: {
@@ -69,17 +69,39 @@ function WidgetDetails() {
   });
 
   useEffect(() => {
-    const { name, age } = widgetSaved ?? {};
+    if (!getResponse) {
+      return;
+    }
+    const { widget } = getResponse;
+    setWidgetSaved(widget);
+    const { name, age } = widget;
     setName(name);
-    setAge(age);
-  }, [widgetSaved]);
+    setAge(String(age));
+  }, [getResponse]);
 
   useEffect(() => {
-    const { errors } = updateResponse ?? {};
+    if (!updateResponse) {
+      return;
+    }
+    const { errors, widget } = updateResponse;
     if (errors) {
       setErrors(errors);
+    } else {
+      setWidgetSaved(widget);
+      setJustSaved(true);
+      setHasChanges(false);
     }
   }, [updateResponse]);
+
+  useEffect(() => {
+    setJustSaved(false);
+    const { name: nameSaved, age: ageSaved } = widgetSaved;
+    if (name !== nameSaved || age !== String(ageSaved)) {
+      setHasChanges(true);
+    } else {
+      setHasChanges(false);
+    }
+  }, [name, age]);
 
   if (initialLoadPending) {
     return <CenteredSpinner />;
@@ -132,8 +154,9 @@ function WidgetDetails() {
             onClick={() => {
               mutateAsyncUpdate({ id, name, age });
             }}
+            disabled={!hasChanges}
           >
-            Save
+            {hasChanges ? "Save" : justSaved ? "Saved" : "No Changes"}
           </Button>
           <Button
             color="error"
