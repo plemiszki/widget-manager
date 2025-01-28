@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Widget do
   it 'creates a widget' do
-    @widget = Widget.create!(name: "test")
+    @widget = Widget.create!(name: "test", age: 10)
     expect(Widget.count).to eq 1
     expect(@widget.name).to eq "test"
   end
