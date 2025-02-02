@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'widget_index', type: :feature do
+describe 'widgets_index', type: :feature do
 
   it 'displays a list of widgets' do
     Widget.create!(name: "Test Widget", age: 22)

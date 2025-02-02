@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
   root to: "application#root"
-  get "/widgets" => "application#root"
-  get "/widgets/:id" => "application#root"
+  resources :widgets, controller: :application, action: :root, only: [:index, :show]
   namespace :api do
     resources :widgets, only: [ :index, :create, :show, :update, :destroy ]
   end
