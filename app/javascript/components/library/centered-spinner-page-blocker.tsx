@@ -16,6 +16,7 @@ function CenteredSpinnerPageBlocker() {
         left: 0,
         zIndex: 1000,
       }}
+      data-test="spinner"
     >
       <CircularProgress size={75} />
     </Box>
