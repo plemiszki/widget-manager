@@ -1,4 +1,4 @@
-class Api::WidgetsController < ActionController::API
+class Api::WidgetsController < ApplicationController
   include RenderErrors
 
   def index
