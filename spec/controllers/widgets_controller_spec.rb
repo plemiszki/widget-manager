@@ -4,6 +4,12 @@ RSpec.describe Api::WidgetsController, type: :controller do
   render_views
 
   context '#index' do
+
+    it 'is gated' do
+      get :index, as: :json
+      expect(response.status).to eq(401)
+    end
+
     it 'returns an OK status code and renders the correct template' do
       get :index, as: :json
       expect(response.status).to eq(200)
@@ -20,6 +26,12 @@ RSpec.describe Api::WidgetsController, type: :controller do
   end
 
   context '#create' do
+
+    it 'is gated' do
+      post :create, params: { widget: { name: "test", age: 10 } }, as: :json
+      expect(response.status).to eq(401)
+    end
+
     it 'returns an OK status code and renders the correct template' do
       post :create, params: { widget: { name: "test", age: 10 } }, as: :json
       expect(response.status).to eq(200)
@@ -34,6 +46,13 @@ RSpec.describe Api::WidgetsController, type: :controller do
   end
 
   context '#show' do
+
+    it 'is gated' do
+      widget = Widget.create!(name: "test", age: 10)
+      get :show, params: { id: widget.id }, as: :json
+      expect(response.status).to eq(401)
+    end
+
     it 'returns an OK status code and renders the correct template' do
       widget = Widget.create!(name: "test", age: 10)
       get :show, params: { id: widget.id }, as: :json
@@ -50,6 +69,13 @@ RSpec.describe Api::WidgetsController, type: :controller do
   end
 
   context '#update' do
+
+    it 'is gated' do
+      widget = Widget.create!(name: "test", age: 10)
+      put :update, params: { id: widget.id, widget: { name: "test2" } }, as: :json
+      expect(response.status).to eq(401)
+    end
+
     it 'returns an OK status code and renders the correct template' do
       widget = Widget.create!(name: "test", age: 10)
       put :update, params: { id: widget.id, widget: { name: "test2" } }, as: :json
@@ -75,6 +101,13 @@ RSpec.describe Api::WidgetsController, type: :controller do
   end
 
   context "#delete" do
+
+    it 'is gated' do
+      widget = Widget.create!(name: "test", age: 10)
+      delete :destroy, params: { id: widget.id }, as: :json
+      expect(response.status).to eq(401)
+    end
+
     it 'returns an OK status code' do
       widget = Widget.create!(name: "test", age: 10)
       delete :destroy, params: { id: widget.id }, as: :json
