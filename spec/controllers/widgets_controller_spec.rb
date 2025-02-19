@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'controllers/utils'
 
 RSpec.describe Api::WidgetsController, type: :controller do
   render_views
@@ -54,6 +55,7 @@ RSpec.describe Api::WidgetsController, type: :controller do
     end
 
     it 'returns an OK status code and renders the correct template' do
+      hi
       widget = Widget.create!(name: "test", age: 10)
       get :show, params: { id: widget.id }, as: :json
       expect(response.status).to eq(200)
