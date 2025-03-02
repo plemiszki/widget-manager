@@ -16,15 +16,7 @@ import useGetAllWidgets from "../api/getAllWidgets";
 import type { Widget } from "../types";
 import ErrorBanner from "./library/error-banner";
 import WidgetNew from "./widget-new";
-import { getCsrfToken } from "../api/getCsrfToken";
-
-const signOut = async () => {
-  await fetch(`/session`, {
-    method: "DELETE",
-    headers: { "x-csrf-token": getCsrfToken() },
-  });
-  window.location.replace("/widgets");
-};
+import useDeleteSession from "../api/deleteSession";
 
 function WidgetsIndex() {
   const navigate = useNavigate();
@@ -41,6 +33,13 @@ function WidgetsIndex() {
     isLoading: boolean;
     isError: boolean;
   } = useGetAllWidgets();
+
+  const {
+    mutateAsync: mutateAsyncDeleteSession,
+    isPending: isPendingDeleteSession,
+  } = useDeleteSession(() => {
+    navigate("/session/new");
+  });
 
   useEffect(() => {
     if (!getAllWidgetsData) {
@@ -67,7 +66,11 @@ function WidgetsIndex() {
             <Button variant="contained" onClick={() => setDialogOpen(true)}>
               Add Widget
             </Button>
-            <Button color="error" variant="contained" onClick={() => signOut()}>
+            <Button
+              color="error"
+              variant="contained"
+              onClick={() => mutateAsyncDeleteSession()}
+            >
               Sign Out
             </Button>
           </Stack>
