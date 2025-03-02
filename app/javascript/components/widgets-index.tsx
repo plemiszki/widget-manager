@@ -17,6 +17,7 @@ import type { Widget } from "../types";
 import ErrorBanner from "./library/error-banner";
 import WidgetNew from "./widget-new";
 import useDeleteSession from "../api/deleteSession";
+import CenteredSpinnerPageBlocker from "./library/centered-spinner-page-blocker";
 
 function WidgetsIndex() {
   const navigate = useNavigate();
@@ -57,8 +58,11 @@ function WidgetsIndex() {
     return <ErrorBanner text="There was an error loading the widgets." />;
   }
 
+  const showPageBlocker = isPendingDeleteSession;
+
   return (
     <>
+      {showPageBlocker ? <CenteredSpinnerPageBlocker /> : null}
       <Stack sx={{ m: 2 }} spacing={2}>
         <Stack direction="row" display="flext" justifyContent="space-between">
           <Typography>Widgets</Typography>
