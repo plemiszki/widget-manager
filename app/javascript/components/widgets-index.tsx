@@ -16,9 +16,14 @@ import useGetAllWidgets from "../api/getAllWidgets";
 import type { Widget } from "../types";
 import ErrorBanner from "./library/error-banner";
 import WidgetNew from "./widget-new";
+import { getCsrfToken } from "../api/getCsrfToken";
 
-const signOut = () => {
-  console.log("sign out");
+const signOut = async () => {
+  await fetch(`/session`, {
+    method: "DELETE",
+    headers: { "x-csrf-token": getCsrfToken() },
+  });
+  window.location.replace("/widgets");
 };
 
 function WidgetsIndex() {
