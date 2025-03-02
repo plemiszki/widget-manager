@@ -17,6 +17,10 @@ import type { Widget } from "../types";
 import ErrorBanner from "./library/error-banner";
 import WidgetNew from "./widget-new";
 
+const signOut = () => {
+  console.log("sign out");
+};
+
 function WidgetsIndex() {
   const navigate = useNavigate();
 
@@ -54,9 +58,14 @@ function WidgetsIndex() {
       <Stack sx={{ m: 2 }} spacing={2}>
         <Stack direction="row" display="flext" justifyContent="space-between">
           <Typography>Widgets</Typography>
-          <Button variant="contained" onClick={() => setDialogOpen(true)}>
-            Add Widget
-          </Button>
+          <Stack direction="row" spacing={2}>
+            <Button variant="contained" onClick={() => setDialogOpen(true)}>
+              Add Widget
+            </Button>
+            <Button color="error" variant="contained" onClick={() => signOut()}>
+              Sign Out
+            </Button>
+          </Stack>
         </Stack>
         <Paper>
           <Table>
