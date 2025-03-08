@@ -30,6 +30,8 @@ describe 'widgets_index', type: :feature do
     add_button = find('button', text: /^ADD$/)
     add_button.click
 
+    expect(page).not_to have_content('div[role="dialog"]')
+
     widget = Widget.first
     expect(widget.name).to eq('name')
     expect(widget.age).to eq(16)
