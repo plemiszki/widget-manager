@@ -4,6 +4,12 @@ describe 'widget_details', type: :feature do
 
   let(:user) { User.create!(email_address: 'test@example.com', password: 'password') }
 
+  it 'is gated' do
+    widget = Widget.create!(name: "Test Widget", age: 22)
+    visit widget_path(widget)
+    expect(page).to have_button('Sign in')
+  end
+
   it 'displays details about the widget' do
     widget = Widget.create!(name: "Test Widget", age: 22)
     visit authenticated_path(widget_path(widget), user)

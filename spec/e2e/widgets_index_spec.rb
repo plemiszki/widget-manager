@@ -13,6 +13,11 @@ describe 'widgets_index', type: :feature do
 
   let(:user) { User.create!(email_address: 'test@example.com', password: 'password') }
 
+  it 'is gated' do
+    visit widgets_path
+    expect(page).to have_button('Sign in')
+  end
+
   it 'displays a list of widgets' do
     Widget.create!(name: "Test Widget", age: 22)
     visit authenticated_path(widgets_path, user)
