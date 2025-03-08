@@ -2,9 +2,11 @@ require 'rails_helper'
 
 describe 'widget_details', type: :feature do
 
+  let(:user) { User.create!(email_address: 'test@example.com', password: 'password') }
+
   it 'displays details about the widget' do
     widget = Widget.create!(name: "Test Widget", age: 22)
-    visit widget_path(widget)
+    visit authenticated_path(widget_path(widget), user)
     name_field, age_field = find_all('input')
 
     expect(name_field[:value]).to eq('Test Widget')
@@ -13,7 +15,7 @@ describe 'widget_details', type: :feature do
 
   it 'updates the widget' do
     widget = Widget.create!(name: "Test Widget", age: 22)
-    visit widget_path(widget)
+    visit authenticated_path(widget_path(widget), user)
     name_field, age_field = find_all('input')
 
     name_field.set('updated name')
@@ -29,7 +31,7 @@ describe 'widget_details', type: :feature do
 
   it 'validates the presence of the widget name' do
     widget = Widget.create!(name: "Test Widget", age: 22)
-    visit widget_path(widget)
+    visit authenticated_path(widget_path(widget), user)
     name_field = find_all('input')[0]
 
     name_field.set(' ')
@@ -45,7 +47,7 @@ describe 'widget_details', type: :feature do
   it 'validates the uniqueness of the widget name' do
     Widget.create!(name: "Existing Name", age: 22)
     widget = Widget.create!(name: "Test Widget", age: 22)
-    visit widget_path(widget)
+    visit authenticated_path(widget_path(widget), user)
     name_field = find_all('input')[0]
 
     name_field.set('Existing Name')
@@ -60,7 +62,7 @@ describe 'widget_details', type: :feature do
 
   it 'validates the numericality of the widget age' do
     widget = Widget.create!(name: "Test Widget", age: 22)
-    visit widget_path(widget)
+    visit authenticated_path(widget_path(widget), user)
     name_field, age_field = find_all('input')
 
     age_field.set('asdf')
@@ -75,7 +77,7 @@ describe 'widget_details', type: :feature do
 
   it 'validates the widget age is an integer' do
     widget = Widget.create!(name: "Test Widget", age: 22)
-    visit widget_path(widget)
+    visit authenticated_path(widget_path(widget), user)
     name_field, age_field = find_all('input')
 
     age_field.set('3.4')
@@ -90,7 +92,7 @@ describe 'widget_details', type: :feature do
 
   it 'validates the widget age is greater than zero' do
     widget = Widget.create!(name: "Test Widget", age: 22)
-    visit widget_path(widget)
+    visit authenticated_path(widget_path(widget), user)
     name_field, age_field = find_all('input')
 
     age_field.set('-1')
@@ -105,7 +107,7 @@ describe 'widget_details', type: :feature do
 
   it 'deletes the widget' do
     widget = Widget.create!(name: "Test Widget", age: 22)
-    visit widget_path(widget)
+    visit authenticated_path(widget_path(widget), user)
     delete_button = find('button', text: 'DELETE')
     delete_button.click
     confirm_button = find('button', text: 'YES')

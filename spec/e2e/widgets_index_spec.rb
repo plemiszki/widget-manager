@@ -6,14 +6,13 @@ describe 'widgets_index', type: :feature do
 
   it 'displays a list of widgets' do
     Widget.create!(name: "Test Widget", age: 22)
-    visit "/test_login?user_id=#{user.id}"
-    visit widgets_path
+    visit authenticated_path(widgets_path, user)
     expect(page).to have_content 'Test Widget'
     expect(page).to have_content '22'
   end
 
   it 'creates a new widget' do
-    visit widgets_path
+    visit authenticated_path(widgets_path, user)
     add_button = find('button', text: "ADD WIDGET")
     add_button.click
 
@@ -31,7 +30,7 @@ describe 'widgets_index', type: :feature do
   end
 
   it 'validates the presence of the widget name' do
-    visit widgets_path
+    visit authenticated_path(widgets_path, user)
     add_button = find('button', text: "ADD WIDGET")
     add_button.click
 
@@ -47,7 +46,7 @@ describe 'widgets_index', type: :feature do
 
   it 'validates the uniqueness of the widget name' do
     Widget.create!(name: 'name', age: 1)
-    visit widgets_path
+    visit authenticated_path(widgets_path, user)
     add_button = find('button', text: "ADD WIDGET")
     add_button.click
 
@@ -62,7 +61,7 @@ describe 'widgets_index', type: :feature do
   end
 
   it 'validates the numericality of the widget age' do
-    visit widgets_path
+    visit authenticated_path(widgets_path, user)
     add_button = find('button', text: "ADD WIDGET")
     add_button.click
 
@@ -77,7 +76,7 @@ describe 'widgets_index', type: :feature do
   end
 
   it 'validates the widget age is an integer' do
-    visit widgets_path
+    visit authenticated_path(widgets_path, user)
     add_button = find('button', text: "ADD WIDGET")
     add_button.click
 
@@ -92,7 +91,7 @@ describe 'widgets_index', type: :feature do
   end
 
   it 'validates the widget age is greater than zero' do
-    visit widgets_path
+    visit authenticated_path(widgets_path, user)
     add_button = find('button', text: "ADD WIDGET")
     add_button.click
 

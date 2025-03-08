@@ -4,8 +4,6 @@ const postApiData = async <T>(
   url: string,
   { body, onSuccess }: { body?: any; onSuccess?: (response: Response) => void }
 ): Promise<T> => {
-  const metaTag = document.querySelector('meta[name="csrf-token"]');
-  const csrfToken = metaTag.getAttribute("content");
   const response = await fetch(`/api/${url}`, {
     method: "POST",
     headers: {
