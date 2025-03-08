@@ -2,8 +2,11 @@ require 'rails_helper'
 
 describe 'widgets_index', type: :feature do
 
+  let(:user) { User.create!(email_address: 'test@example.com', password: 'password') }
+
   it 'displays a list of widgets' do
     Widget.create!(name: "Test Widget", age: 22)
+    visit "/test_login?user_id=#{user.id}"
     visit widgets_path
     expect(page).to have_content 'Test Widget'
     expect(page).to have_content '22'

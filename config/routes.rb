@@ -6,4 +6,8 @@ Rails.application.routes.draw do
   namespace :api do
     resources :widgets, only: [ :index, :create, :show, :update, :destroy ]
   end
+
+  if Rails.env.test?
+    get '/test_login', to: 'test_sessions#create'
+  end
 end
