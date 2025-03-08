@@ -1,5 +1,14 @@
 require 'rails_helper'
 
+def open_dialog
+  add_button = find('button', text: "ADD WIDGET")
+  add_button.click
+
+  within('div[role="dialog"]') do
+    expect(page).to have_content('Add Widget')
+  end
+end
+
 describe 'widgets_index', type: :feature do
 
   let(:user) { User.create!(email_address: 'test@example.com', password: 'password') }
@@ -13,8 +22,7 @@ describe 'widgets_index', type: :feature do
 
   it 'creates a new widget' do
     visit authenticated_path(widgets_path, user)
-    add_button = find('button', text: "ADD WIDGET")
-    add_button.click
+    open_dialog
 
     name_field, age_field = find_all('input')
     name_field.set('name')
@@ -31,8 +39,7 @@ describe 'widgets_index', type: :feature do
 
   it 'validates the presence of the widget name' do
     visit authenticated_path(widgets_path, user)
-    add_button = find('button', text: "ADD WIDGET")
-    add_button.click
+    open_dialog
 
     name_field, age_field = find_all('input')
     name_field.set('')
@@ -47,8 +54,7 @@ describe 'widgets_index', type: :feature do
   it 'validates the uniqueness of the widget name' do
     Widget.create!(name: 'name', age: 1)
     visit authenticated_path(widgets_path, user)
-    add_button = find('button', text: "ADD WIDGET")
-    add_button.click
+    open_dialog
 
     name_field, age_field = find_all('input')
     name_field.set('name')
@@ -62,8 +68,7 @@ describe 'widgets_index', type: :feature do
 
   it 'validates the numericality of the widget age' do
     visit authenticated_path(widgets_path, user)
-    add_button = find('button', text: "ADD WIDGET")
-    add_button.click
+    open_dialog
 
     name_field, age_field = find_all('input')
     name_field.set('name')
@@ -77,8 +82,7 @@ describe 'widgets_index', type: :feature do
 
   it 'validates the widget age is an integer' do
     visit authenticated_path(widgets_path, user)
-    add_button = find('button', text: "ADD WIDGET")
-    add_button.click
+    open_dialog
 
     name_field, age_field = find_all('input')
     name_field.set('name')
@@ -92,8 +96,7 @@ describe 'widgets_index', type: :feature do
 
   it 'validates the widget age is greater than zero' do
     visit authenticated_path(widgets_path, user)
-    add_button = find('button', text: "ADD WIDGET")
-    add_button.click
+    open_dialog
 
     name_field, age_field = find_all('input')
     name_field.set('name')
