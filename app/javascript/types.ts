@@ -9,4 +9,9 @@ interface WidgetErrors {
   age?: string;
 }
 
-export { Widget, WidgetErrors };
+interface UserErrors {
+  email?: string;
+  password?: string;
+}
+
+export { Widget, WidgetErrors, UserErrors };
