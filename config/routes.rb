@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
+  root to: "application#root"
   resource :session
   resources :passwords, param: :token
-  root to: "application#root"
+
+  resources :users, only: [:new]
   resources :widgets, controller: :application, action: :root, only: [:index, :show]
+
   namespace :api do
     resources :widgets, only: [ :index, :create, :show, :update, :destroy ]
   end

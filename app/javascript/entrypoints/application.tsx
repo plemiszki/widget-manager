@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import WidgetsIndex from "../components/widgets-index";
 import WidgetDetails from "../components/widget-details";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import UserNew from "../components/user-new";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <WidgetsIndex />,
+  },
+  {
+    path: "/users/new",
+    element: <UserNew />,
   },
   {
     path: "/widgets",
