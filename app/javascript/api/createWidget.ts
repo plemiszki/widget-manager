@@ -6,8 +6,8 @@ const CREATE_WIDGET_URL = "widgets";
 
 interface ApiResponse {
   errors?: {
-    name: string;
-    age: string;
+    name: string[];
+    age: string[];
   };
   widgets: Widget[];
 }

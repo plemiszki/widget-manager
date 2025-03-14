@@ -6,8 +6,8 @@ const CREATE_USER_URL = "users";
 
 interface ApiResponse {
   errors?: {
-    email: string;
-    password: string;
+    email: string[];
+    password: string[];
   };
   user: User;
 }

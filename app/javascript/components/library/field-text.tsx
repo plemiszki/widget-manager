@@ -5,17 +5,18 @@ function FieldText({
   label,
   value,
   onChange,
-  error,
+  errors,
   clearError,
   password,
 }: {
   label: string;
   value: string;
   onChange: (value: string) => void;
-  error: string;
+  errors: string[];
   clearError: () => void;
   password?: boolean;
 }) {
+  const errorToDisplay = errors && errors.length > 0 ? errors[0] : null;
   return (
     <>
       <TextField
@@ -27,12 +28,12 @@ function FieldText({
           clearError();
         }}
         label={label}
-        error={!!error}
+        error={!!errorToDisplay}
         type={password ? "password" : null}
       />
-      {error ? (
+      {errorToDisplay ? (
         <Typography variant="subtitle2" color="red">
-          {error}
+          {errorToDisplay}
         </Typography>
       ) : null}
     </>

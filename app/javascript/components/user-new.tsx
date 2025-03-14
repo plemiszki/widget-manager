@@ -1,15 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Paper, Stack, Typography } from "@mui/material";
 import FieldText from "./library/field-text";
 import { UserErrors } from "../types";
 import useCreateUser from "../api/createUser";
 import CenteredSpinnerPageBlocker from "./library/centered-spinner-page-blocker";
 import ErrorBanner from "./library/error-banner";
+import { useNavigate } from "react-router-dom";
 
 function UserNew() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState<UserErrors>({});
+
+  const navigate = useNavigate();
 
   const clearError = (key: string) => {
     delete errors[key];
@@ -17,6 +20,18 @@ function UserNew() {
   };
 
   const { mutateAsync, data, isPending, isError } = useCreateUser();
+
+  useEffect(() => {
+    if (!data) {
+      return;
+    }
+    const { user, errors } = data;
+    if (errors) {
+      setErrors(errors);
+    } else {
+      window.location.href = "/widgets";
+    }
+  }, [data]);
 
   return (
     <Stack sx={{ p: 2 }} spacing={2}>
@@ -31,14 +46,14 @@ function UserNew() {
             label="Email Address"
             value={email}
             onChange={(value: string) => setEmail(value)}
-            error={errors?.email}
-            clearError={() => clearError("email")}
+            errors={errors?.emailAddress}
+            clearError={() => clearError("emailAddress")}
           />
           <FieldText
             label="Password"
             value={password}
             onChange={(value: string) => setPassword(value)}
-            error={errors?.email}
+            errors={errors?.password}
             clearError={() => clearError("password")}
             password
           />

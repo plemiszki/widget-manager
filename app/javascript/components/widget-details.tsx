@@ -135,14 +135,14 @@ function WidgetDetails() {
               label="Name"
               value={name}
               onChange={(value: string) => setName(value)}
-              error={errors?.name}
+              errors={errors?.name}
               clearError={() => clearError("name")}
             />
             <FieldText
               label="Age"
               value={age}
               onChange={(value: string) => setAge(value)}
-              error={errors?.age}
+              errors={errors?.age}
               clearError={() => clearError("age")}
             />
           </Stack>

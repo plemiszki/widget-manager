@@ -5,8 +5,8 @@ interface Widget {
 }
 
 interface WidgetErrors {
-  name?: string;
-  age?: string;
+  name?: string[];
+  age?: string[];
 }
 
 interface User {
@@ -16,8 +16,8 @@ interface User {
 }
 
 interface UserErrors {
-  email?: string;
-  password?: string;
+  emailAddress?: string[];
+  password?: string[];
 }
 
 export { Widget, WidgetErrors, User, UserErrors };
