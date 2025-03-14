@@ -57,6 +57,38 @@ RSpec.describe Api::WidgetsController, type: :controller do
       widgets_data = JSON.parse(response.body)["widgets"]
       expect(widgets_data[0]["name"]).to eq "test"
     end
+
+    it 'does not create a widget with a blank name' do
+      create_user_session
+      post :create, params: { widget: { name: "", age: 10 } }, as: :json
+      expect(response.status).to eq(422)
+      errors = JSON.parse(response.body)["errors"]
+      expect(errors["name"]).to eq [ "Name can't be blank" ]
+    end
+
+    it 'does not create a widget with an age that is not a number' do
+      create_user_session
+      post :create, params: { widget: { name: "test2", age: "age" } }, as: :json
+      expect(response.status).to eq(422)
+      errors = JSON.parse(response.body)["errors"]
+      expect(errors["age"]).to eq [ "Age is not a number" ]
+    end
+
+    it 'does not create a widget with an age that is not an integer' do
+      create_user_session
+      post :create, params: { widget: { name: "test2", age: 3.14 } }, as: :json
+      expect(response.status).to eq(422)
+      errors = JSON.parse(response.body)["errors"]
+      expect(errors["age"]).to eq [ "Age must be an integer" ]
+    end
+
+    it 'does not create a widget with an age that is less than one' do
+      create_user_session
+      post :create, params: { widget: { name: "test2", age: 0 } }, as: :json
+      expect(response.status).to eq(422)
+      errors = JSON.parse(response.body)["errors"]
+      expect(errors["age"]).to eq [ "Age must be greater than 0" ]
+    end
   end
 
   context '#show' do
