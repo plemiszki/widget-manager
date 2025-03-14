@@ -26,7 +26,7 @@ RSpec.describe Api::UsersController, type: :controller do
       post :create, params: { user: { email_address: "username@domain.com", password: "" } }, as: :json
       expect(response.status).to eq(422)
       errors = JSON.parse(response.body)["errors"]
-      expect(errors["password"]).to eq [ "Password can't be blank" ]
+      expect(errors["password"][0]).to eq "Password can't be blank"
     end
 
     it 'does not create a user with an email address that has already been taken' do
@@ -42,6 +42,13 @@ RSpec.describe Api::UsersController, type: :controller do
       expect(response.status).to eq(422)
       errors = JSON.parse(response.body)["errors"]
       expect(errors["emailAddress"]).to eq [ "Email address is invalid" ]
+    end
+
+    it 'does not create a user with a password that is too short' do
+      post :create, params: { user: { email_address: "user@domain.com", password: "passwor" } }, as: :json
+      expect(response.status).to eq(422)
+      errors = JSON.parse(response.body)["errors"]
+      expect(errors["password"]).to eq [ "Password is too short (minimum is 8 characters)" ]
     end
 
   end
