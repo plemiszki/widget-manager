@@ -4,6 +4,7 @@ import FieldText from "./library/field-text";
 import { UserErrors } from "../types";
 import useCreateUser from "../api/createUser";
 import CenteredSpinnerPageBlocker from "./library/centered-spinner-page-blocker";
+import ErrorBanner from "./library/error-banner";
 
 function UserNew() {
   const [email, setEmail] = useState("");
@@ -20,6 +21,9 @@ function UserNew() {
   return (
     <Stack sx={{ p: 2 }} spacing={2}>
       {isPending ? <CenteredSpinnerPageBlocker /> : null}
+      {isError ? (
+        <ErrorBanner text="There was an error creating the user." />
+      ) : null}
       <Typography>Sign Up</Typography>
       <Paper sx={{ p: 2 }}>
         <Stack spacing={1}>
