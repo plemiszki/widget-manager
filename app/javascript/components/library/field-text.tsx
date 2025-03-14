@@ -7,12 +7,14 @@ function FieldText({
   onChange,
   error,
   clearError,
+  password,
 }: {
   label: string;
   value: string;
   onChange: (value: string) => void;
   error: string;
   clearError: () => void;
+  password?: boolean;
 }) {
   return (
     <>
@@ -26,6 +28,7 @@ function FieldText({
         }}
         label={label}
         error={!!error}
+        type={password ? "password" : null}
       />
       {error ? (
         <Typography variant="subtitle2" color="red">

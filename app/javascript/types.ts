@@ -9,9 +9,15 @@ interface WidgetErrors {
   age?: string;
 }
 
+interface User {
+  id?: number;
+  email: string;
+  password: string;
+}
+
 interface UserErrors {
   email?: string;
   password?: string;
 }
 
-export { Widget, WidgetErrors, UserErrors };
+export { Widget, WidgetErrors, User, UserErrors };
