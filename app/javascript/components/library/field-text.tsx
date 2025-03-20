@@ -12,7 +12,7 @@ function FieldText({
   label: string;
   value: string;
   onChange: (value: string) => void;
-  errors: string[];
+  errors?: string[];
   clearError: () => void;
   password?: boolean;
 }) {

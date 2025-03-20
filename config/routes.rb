@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :widgets, controller: :application, action: :root, only: [:index, :show]
 
   namespace :api do
+    resource :session, only: [:create, :destroy]
     resources :users, only: [:create]
     resources :widgets, only: [:index, :create, :show, :update, :destroy]
   end

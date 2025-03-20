@@ -20,4 +20,8 @@ interface UserErrors {
   password?: string[];
 }
 
-export { Widget, WidgetErrors, User, UserErrors };
+interface LoginErrors {
+  credentials?: boolean;
+}
+
+export { Widget, WidgetErrors, User, UserErrors, LoginErrors };
