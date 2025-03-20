@@ -59,13 +59,22 @@ function UserNew() {
           />
         </Stack>
       </Paper>
-      <Stack direction="row">
+      <Stack direction="row" spacing={1}>
         <Button
           color="primary"
           variant="contained"
           onClick={() => mutateAsync({ email, password })}
         >
-          Create Account
+          Sign Up
+        </Button>
+        <Button
+          color="primary"
+          variant="contained"
+          onClick={() => {
+            navigate("/session/new");
+          }}
+        >
+          Sign In Instead
         </Button>
       </Stack>
     </Stack>

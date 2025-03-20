@@ -58,7 +58,7 @@ function SignIn() {
           />
         </Stack>
       </Paper>
-      <Stack direction="row">
+      <Stack direction="row" spacing={1}>
         <Button
           color="primary"
           variant="contained"
@@ -67,6 +67,15 @@ function SignIn() {
           }}
         >
           Sign In
+        </Button>
+        <Button
+          color="primary"
+          variant="contained"
+          onClick={() => {
+            navigate("/users/new");
+          }}
+        >
+          Sign Up Instead
         </Button>
       </Stack>
     </Stack>
