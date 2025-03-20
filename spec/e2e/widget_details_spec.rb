@@ -7,7 +7,7 @@ describe 'widget_details', type: :feature do
   it 'is gated' do
     widget = Widget.create!(name: "Test Widget", age: 22)
     visit widget_path(widget)
-    expect(page).to have_button('Sign in')
+    expect(page).to have_content('Sign In')
   end
 
   it 'displays details about the widget' do

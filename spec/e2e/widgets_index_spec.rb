@@ -15,7 +15,7 @@ describe 'widgets_index', type: :feature do
 
   it 'is gated' do
     visit widgets_path
-    expect(page).to have_button('Sign in')
+    expect(page).to have_content('Sign In')
   end
 
   it 'displays a list of widgets' do
