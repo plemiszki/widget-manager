@@ -6,6 +6,7 @@ import WidgetDetails from "../components/widget-details";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import UserNew from "../components/user-new";
 import SignIn from "../components/sign-in";
+import NotFound from "../components/not-found";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
   {
     path: "/widgets/:id",
     element: <WidgetDetails />,
+  },
+  {
+    path: "*",
+    element: <NotFound />,
   },
 ]);
 
