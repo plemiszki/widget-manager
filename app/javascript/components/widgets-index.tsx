@@ -37,7 +37,8 @@ function WidgetsIndex() {
 
   const {
     mutateAsync: mutateAsyncDeleteSession,
-    isPending: isPendingDeleteSession,
+    isPending: deleteSessionLoading,
+    isError: deleteSessionError,
   } = useDeleteSession(() => {
     navigate("/session/new");
   });
@@ -58,12 +59,15 @@ function WidgetsIndex() {
     return <ErrorBanner text="There was an error loading the widgets." />;
   }
 
-  const showPageBlocker = isPendingDeleteSession;
+  const showPageBlocker = deleteSessionLoading;
 
   return (
     <>
       {showPageBlocker ? <CenteredSpinnerPageBlocker /> : null}
       <Stack sx={{ m: 2 }} spacing={2}>
+        {deleteSessionError ? (
+          <ErrorBanner text="There was an error signing out." />
+        ) : null}
         <Stack direction="row" display="flext" justifyContent="space-between">
           <Typography>Widgets</Typography>
           <Stack direction="row" spacing={2}>

@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
   root to: "application#root"
-  resource :session
+
+  resource :session, only: [:new]
+  resources :users, only: [:new]
   resources :passwords, param: :token
 
-  resources :users, only: [:new]
   resources :widgets, controller: :application, action: :root, only: [:index, :show]
 
   namespace :api do
