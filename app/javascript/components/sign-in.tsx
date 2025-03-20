@@ -5,19 +5,21 @@ import { LoginErrors } from "../types";
 import CenteredSpinnerPageBlocker from "./library/centered-spinner-page-blocker";
 import ErrorBanner from "./library/error-banner";
 import useCreateSession from "../api/createSession";
+import { useNavigate } from "react-router-dom";
 
 function SignIn() {
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState<LoginErrors>({});
-  const [spinner, setSpinner] = useState(false);
 
   const clearError = (key: string) => {
     delete errors[key];
     setErrors(errors);
   };
 
-  const { mutateAsync, data, isError } = useCreateSession();
+  const { mutateAsync, data, isPending, isError } = useCreateSession();
 
   useEffect(() => {
     if (!data) {
@@ -26,21 +28,14 @@ function SignIn() {
     const { errors, redirectToUrl } = data;
     if (errors) {
       setErrors(errors);
-      setSpinner(false);
     } else {
-      window.location.href = redirectToUrl;
+      navigate(redirectToUrl);
     }
   }, [data]);
 
-  useEffect(() => {
-    if (isError) {
-      setSpinner(false);
-    }
-  }, [isError]);
-
   return (
     <Stack sx={{ p: 2 }} spacing={2}>
-      {spinner ? <CenteredSpinnerPageBlocker /> : null}
+      {isPending ? <CenteredSpinnerPageBlocker /> : null}
       {isError ? <ErrorBanner text="There was an error signing in." /> : null}
       {errors?.credentials ? (
         <ErrorBanner text="Your username and password are incorrect. Please try again." />
@@ -68,7 +63,6 @@ function SignIn() {
           color="primary"
           variant="contained"
           onClick={() => {
-            setSpinner(true);
             mutateAsync({ email, password });
           }}
         >

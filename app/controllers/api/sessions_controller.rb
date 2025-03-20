@@ -6,7 +6,7 @@ class Api::SessionsController < ApplicationController
     if user = User.authenticate_by(params.permit(:email_address, :password))
       start_new_session_for user
       render json: {
-        redirect_to_url: after_authentication_url,
+        redirect_to_url: URI(after_authentication_url).path,
       }, status: 200
     else
       render json: {
