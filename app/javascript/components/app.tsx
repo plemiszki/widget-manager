@@ -11,7 +11,31 @@ import { CssBaseline, createTheme, ThemeProvider } from "@mui/material";
 const theme = createTheme({
   palette: {
     background: {
-      default: "#f5f5f5",
+      default: "#121212",
+      paper: "#2c2c2c",
+    },
+    text: {
+      primary: "#e0e0e0",
+      secondary: "#bdbdbd",
+    },
+  },
+  typography: {
+    h1: {
+      fontSize: "1.5rem",
+      fontWeight: 600,
+      letterSpacing: "0.05em",
+      color: "#e0e0e0",
+    },
+  },
+  components: {
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          "& .MuiOutlinedInput-root": {
+            backgroundColor: "#424242",
+          },
+        },
+      },
     },
   },
 });

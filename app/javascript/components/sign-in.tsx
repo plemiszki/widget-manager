@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Button, Paper, Stack, Typography } from "@mui/material";
+import { Button, Link, Paper, Stack, Typography } from "@mui/material";
 import FieldText from "./library/field-text";
 import { LoginErrors } from "../types";
 import CenteredSpinnerPageBlocker from "./library/centered-spinner-page-blocker";
 import ErrorBanner from "./library/error-banner";
 import useCreateSession from "../api/createSession";
-import { useNavigate } from "react-router-dom";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
 
 function SignIn() {
   const navigate = useNavigate();
@@ -34,50 +34,66 @@ function SignIn() {
   }, [data]);
 
   return (
-    <Stack sx={{ p: 2 }} spacing={2}>
+    <Stack
+      sx={{ p: 2 }}
+      width="100%"
+      spacing={2}
+      display="flex"
+      alignItems="center"
+      justifyContent="center"
+      flexGrow="1"
+    >
       {isPending ? <CenteredSpinnerPageBlocker /> : null}
       {isError ? <ErrorBanner text="There was an error signing in." /> : null}
       {errors?.credentials ? (
         <ErrorBanner text="Your username and password are incorrect. Please try again." />
       ) : null}
-      <Typography>Sign In</Typography>
-      <Paper sx={{ p: 2 }}>
-        <Stack spacing={1}>
-          <FieldText
-            label="Email Address"
-            value={email}
-            onChange={(value: string) => setEmail(value)}
-            clearError={() => clearError("credentials")}
-          />
-          <FieldText
-            label="Password"
-            value={password}
-            onChange={(value: string) => setPassword(value)}
-            clearError={() => clearError("credentials")}
-            password
-          />
+      <Paper sx={{ p: 2, maxWidth: 750, width: "100%" }}>
+        <Stack spacing={2}>
+          <Typography variant="h1">Sign in</Typography>
+          <Stack spacing={1}>
+            <FieldText
+              label="Email Address"
+              value={email}
+              onChange={(value: string) => setEmail(value)}
+              clearError={() => clearError("credentials")}
+            />
+            <FieldText
+              label="Password"
+              value={password}
+              onChange={(value: string) => setPassword(value)}
+              clearError={() => clearError("credentials")}
+              password
+            />
+          </Stack>
+          <Stack direction="row" spacing={2} alignItems="center">
+            <Button
+              color="primary"
+              variant="contained"
+              onClick={() => {
+                mutateAsync({ email, password });
+              }}
+              sx={{
+                textTransform: "none",
+              }}
+            >
+              Sign in
+            </Button>
+            <Link
+              component={RouterLink}
+              to="/users/new"
+              underline="none"
+              sx={{
+                color: "text.secondary",
+                textDecoration: "underline",
+                textDecorationColor: "text.secondary",
+              }}
+            >
+              <Typography variant="subtitle2">Need to sign up?</Typography>
+            </Link>
+          </Stack>
         </Stack>
       </Paper>
-      <Stack direction="row" spacing={1}>
-        <Button
-          color="primary"
-          variant="contained"
-          onClick={() => {
-            mutateAsync({ email, password });
-          }}
-        >
-          Sign In
-        </Button>
-        <Button
-          color="primary"
-          variant="contained"
-          onClick={() => {
-            navigate("/users/new");
-          }}
-        >
-          Sign Up Instead
-        </Button>
-      </Stack>
     </Stack>
   );
 }
