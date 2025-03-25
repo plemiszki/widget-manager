@@ -44,13 +44,15 @@ function SignIn() {
       flexGrow="1"
     >
       {isPending ? <CenteredSpinnerPageBlocker /> : null}
-      {isError ? <ErrorBanner text="There was an error signing in." /> : null}
-      {errors?.credentials ? (
-        <ErrorBanner text="Your username and password are incorrect. Please try again." />
-      ) : null}
       <Paper sx={{ p: 2, maxWidth: 750, width: "100%" }}>
         <Stack spacing={2}>
           <Typography variant="h1">Sign in</Typography>
+          {errors?.credentials ? (
+            <ErrorBanner text="Your username and password are incorrect. Please try again." />
+          ) : null}
+          {isError ? (
+            <ErrorBanner text="There was an error signing in." />
+          ) : null}
           <Stack spacing={1}>
             <FieldText
               label="Email Address"

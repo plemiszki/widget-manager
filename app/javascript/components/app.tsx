@@ -7,8 +7,35 @@ import UserNew from "./user-new";
 import WidgetDetails from "./widget-details";
 import NotFound from "./not-found";
 import { CssBaseline, createTheme, ThemeProvider } from "@mui/material";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
-const theme = createTheme({
+const lightTheme = createTheme({
+  palette: {
+    background: {
+      default: "#F5F6F7",
+      paper: "#ffffff",
+    },
+    text: {
+      primary: "#37474F",
+      secondary: "#37474F",
+    },
+  },
+  typography: {
+    h1: {
+      fontSize: "1.5rem",
+      fontWeight: 600,
+      letterSpacing: "0.05em",
+      color: "#212121",
+    },
+    h6: {
+      fontSize: "0.9rem",
+      fontWeight: 600,
+      color: "#37474F",
+    },
+  },
+});
+
+const darkTheme = createTheme({
   palette: {
     background: {
       default: "#121212",
@@ -77,8 +104,10 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
+  const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
+
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={prefersDarkMode ? darkTheme : lightTheme}>
       <QueryClientProvider client={queryClient}>
         <CssBaseline />
         <RouterProvider router={router} />

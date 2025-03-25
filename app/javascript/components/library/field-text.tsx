@@ -1,4 +1,4 @@
-import { TextField, Typography } from "@mui/material";
+import { Stack, TextField, Typography } from "@mui/material";
 import React from "react";
 
 function FieldText({
@@ -18,7 +18,8 @@ function FieldText({
 }) {
   const errorToDisplay = errors && errors.length > 0 ? errors[0] : null;
   return (
-    <>
+    <Stack spacing={0.5}>
+      <Typography variant="h6">{label}</Typography>
       <TextField
         variant="outlined"
         fullWidth
@@ -27,7 +28,6 @@ function FieldText({
           onChange(e.target.value);
           clearError();
         }}
-        label={label}
         error={!!errorToDisplay}
         type={password ? "password" : null}
       />
@@ -36,7 +36,7 @@ function FieldText({
           {errorToDisplay}
         </Typography>
       ) : null}
-    </>
+    </Stack>
   );
 }
 
