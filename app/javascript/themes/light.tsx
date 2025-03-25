@@ -1,5 +1,21 @@
 import { createTheme } from "@mui/material";
 
+declare module "@mui/material/styles" {
+  interface TypographyVariants {
+    error: React.CSSProperties;
+  }
+
+  interface TypographyVariantsOptions {
+    error?: React.CSSProperties;
+  }
+}
+
+declare module "@mui/material/Typography" {
+  interface TypographyPropsVariantOverrides {
+    error: true;
+  }
+}
+
 const lightTheme = createTheme({
   palette: {
     background: {
