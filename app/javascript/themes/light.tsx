@@ -15,13 +15,18 @@ const lightTheme = createTheme({
     h1: {
       fontSize: "1.5rem",
       fontWeight: 600,
-      letterSpacing: "0.05em",
       color: "#212121",
+      letterSpacing: "0.05em",
     },
     h6: {
       fontSize: "0.9rem",
       fontWeight: 600,
       color: "#37474F",
+    },
+    error: {
+      fontSize: 14,
+      fontWeight: 500,
+      color: "#D32F2F",
     },
   },
 });

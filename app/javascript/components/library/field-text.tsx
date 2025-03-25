@@ -32,9 +32,7 @@ function FieldText({
         type={password ? "password" : null}
       />
       {errorToDisplay ? (
-        <Typography variant="subtitle2" color="red">
-          {errorToDisplay}
-        </Typography>
+        <Typography variant="error">{errorToDisplay}</Typography>
       ) : null}
     </Stack>
   );

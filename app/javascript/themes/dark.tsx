@@ -23,6 +23,11 @@ const darkTheme = createTheme({
       fontWeight: 600,
       color: "#e0e0e0",
     },
+    error: {
+      fontSize: 14,
+      fontWeight: 500,
+      color: "#FF3333",
+    },
   },
   components: {
     MuiTextField: {
