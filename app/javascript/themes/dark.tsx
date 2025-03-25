@@ -26,7 +26,7 @@ const darkTheme = createTheme({
     error: {
       fontSize: 14,
       fontWeight: 500,
-      color: "#FF3333",
+      color: "#ff6b6b",
     },
   },
   components: {
@@ -36,6 +36,17 @@ const darkTheme = createTheme({
           "& .MuiOutlinedInput-root": {
             backgroundColor: "#424242",
           },
+          "& .Mui-error .MuiOutlinedInput-notchedOutline": {
+            borderColor: "#ff6b6b !important",
+          },
+        },
+      },
+    },
+    MuiAlert: {
+      styleOverrides: {
+        standardError: {
+          backgroundColor: "#2a1b1b",
+          color: "#ff6b6b",
         },
       },
     },
