@@ -6,66 +6,10 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import UserNew from "./user-new";
 import WidgetDetails from "./widget-details";
 import NotFound from "./not-found";
-import { CssBaseline, createTheme, ThemeProvider } from "@mui/material";
+import { CssBaseline, ThemeProvider } from "@mui/material";
 import useMediaQuery from "@mui/material/useMediaQuery";
-
-const lightTheme = createTheme({
-  palette: {
-    background: {
-      default: "#F5F6F7",
-      paper: "#ffffff",
-    },
-    text: {
-      primary: "#37474F",
-      secondary: "#37474F",
-    },
-  },
-  typography: {
-    h1: {
-      fontSize: "1.5rem",
-      fontWeight: 600,
-      letterSpacing: "0.05em",
-      color: "#212121",
-    },
-    h6: {
-      fontSize: "0.9rem",
-      fontWeight: 600,
-      color: "#37474F",
-    },
-  },
-});
-
-const darkTheme = createTheme({
-  palette: {
-    background: {
-      default: "#121212",
-      paper: "#2c2c2c",
-    },
-    text: {
-      primary: "#e0e0e0",
-      secondary: "#bdbdbd",
-    },
-  },
-  typography: {
-    h1: {
-      fontSize: "1.5rem",
-      fontWeight: 600,
-      letterSpacing: "0.05em",
-      color: "#e0e0e0",
-    },
-  },
-  components: {
-    MuiTextField: {
-      styleOverrides: {
-        root: {
-          "& .MuiOutlinedInput-root": {
-            backgroundColor: "#424242",
-          },
-        },
-      },
-    },
-  },
-});
+import darkTheme from "../themes/dark";
+import lightTheme from "../themes/light";
 
 const queryClient = new QueryClient({
   defaultOptions: {
