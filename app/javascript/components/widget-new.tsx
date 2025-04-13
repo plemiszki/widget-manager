@@ -6,6 +6,7 @@ import {
   DialogContent,
   DialogTitle,
   Stack,
+  Typography,
 } from "@mui/material";
 import type { Widget, WidgetErrors } from "../types";
 import ErrorBanner from "./library/error-banner";
@@ -81,8 +82,9 @@ function WidgetNew({
           variant="contained"
           onClick={() => mutateAsyncCreate({ name, age })}
           disabled={createWidgetPending}
+          sx={{ textTransform: "none" }}
         >
-          Add
+          <Typography variant="bold">Add Widget</Typography>
         </Button>
       </DialogActions>
     </Dialog>

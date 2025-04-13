@@ -79,7 +79,7 @@ function SignIn() {
                 textTransform: "none",
               }}
             >
-              Sign in
+              <Typography variant="bold">Sign in</Typography>
             </Button>
             <Link
               component={RouterLink}

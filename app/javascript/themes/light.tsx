@@ -35,7 +35,6 @@ const lightTheme = createTheme({
       fontSize: "1.5rem",
       fontWeight: 600,
       color: "#212121",
-      letterSpacing: "0.05em",
     },
     h6: {
       fontSize: "0.9rem",
@@ -49,6 +48,26 @@ const lightTheme = createTheme({
       fontSize: 14,
       fontWeight: 500,
       color: "#D32F2F",
+    },
+  },
+  components: {
+    MuiDialogActions: {
+      styleOverrides: {
+        root: {
+          paddingLeft: 24,
+          paddingRight: 24,
+          paddingBottom: 20,
+        },
+      },
+    },
+    MuiDialogTitle: {
+      styleOverrides: {
+        root: {
+          fontSize: "1.25rem",
+          fontWeight: 600,
+          color: "#212121",
+        },
+      },
     },
   },
 });

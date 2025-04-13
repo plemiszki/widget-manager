@@ -15,7 +15,6 @@ const darkTheme = createTheme({
     h1: {
       fontSize: "1.5rem",
       fontWeight: 600,
-      letterSpacing: "0.05em",
       color: "#e0e0e0",
     },
     h6: {

@@ -19,7 +19,9 @@ function FieldText({
   const errorToDisplay = errors && errors.length > 0 ? errors[0] : null;
   return (
     <Stack spacing={0.5}>
-      <Typography variant="h6">{label}</Typography>
+      <Typography variant="h6" color="black">
+        {label}
+      </Typography>
       <TextField
         variant="outlined"
         fullWidth
