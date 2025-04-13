@@ -23,6 +23,9 @@ const darkTheme = createTheme({
       fontWeight: 600,
       color: "#e0e0e0",
     },
+    bold: {
+      fontWeight: 700,
+    },
     error: {
       fontSize: 14,
       fontWeight: 500,

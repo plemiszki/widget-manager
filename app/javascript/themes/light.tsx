@@ -3,16 +3,19 @@ import { createTheme } from "@mui/material";
 declare module "@mui/material/styles" {
   interface TypographyVariants {
     error: React.CSSProperties;
+    bold: React.CSSProperties;
   }
 
   interface TypographyVariantsOptions {
     error?: React.CSSProperties;
+    bold?: React.CSSProperties;
   }
 }
 
 declare module "@mui/material/Typography" {
   interface TypographyPropsVariantOverrides {
     error: true;
+    bold: true;
   }
 }
 
@@ -38,6 +41,9 @@ const lightTheme = createTheme({
       fontSize: "0.9rem",
       fontWeight: 600,
       color: "#37474F",
+    },
+    bold: {
+      fontWeight: 700,
     },
     error: {
       fontSize: 14,

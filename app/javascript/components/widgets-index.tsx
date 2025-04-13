@@ -18,6 +18,7 @@ import ErrorBanner from "./library/error-banner";
 import WidgetNew from "./widget-new";
 import useDeleteSession from "../api/deleteSession";
 import CenteredSpinnerPageBlocker from "./library/centered-spinner-page-blocker";
+import { Add, Logout } from "@mui/icons-material";
 
 function WidgetsIndex() {
   const navigate = useNavigate();
@@ -69,17 +70,24 @@ function WidgetsIndex() {
           <ErrorBanner text="There was an error signing out." />
         ) : null}
         <Stack direction="row" display="flext" justifyContent="space-between">
-          <Typography>Widgets</Typography>
+          <Typography variant="h1">Widgets</Typography>
           <Stack direction="row" spacing={2}>
-            <Button variant="contained" onClick={() => setDialogOpen(true)}>
-              Add Widget
+            <Button
+              variant="contained"
+              onClick={() => setDialogOpen(true)}
+              sx={{ textTransform: "none" }}
+              startIcon={<Add />}
+            >
+              <Typography variant="bold">Add Widget</Typography>
             </Button>
             <Button
               color="error"
               variant="contained"
               onClick={() => mutateAsyncDeleteSession()}
+              sx={{ textTransform: "none" }}
+              startIcon={<Logout />}
             >
-              Sign Out
+              <Typography variant="bold">Sign Out</Typography>
             </Button>
           </Stack>
         </Stack>
@@ -87,8 +95,16 @@ function WidgetsIndex() {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell>Name</TableCell>
-                <TableCell>Age</TableCell>
+                <TableCell>
+                  <Typography variant="bold" color="black">
+                    Name
+                  </Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography variant="bold" color="black">
+                    Age
+                  </Typography>
+                </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -98,6 +114,7 @@ function WidgetsIndex() {
                     key={`row-${id}`}
                     onClick={() => navigate(`/widgets/${id}`)}
                     sx={{ cursor: "pointer" }}
+                    hover
                   >
                     <TableCell>{name}</TableCell>
                     <TableCell>{age}</TableCell>
