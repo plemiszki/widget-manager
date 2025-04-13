@@ -44,6 +44,21 @@ const darkTheme = createTheme(baseTheme, {
         },
       },
     },
+    MuiTableRow: {
+      styleOverrides: {
+        root: {
+          th: {
+            borderBottom: "solid 1px black",
+          },
+          td: {
+            borderBottom: "solid 1px black",
+          },
+          "&.MuiTableRow-hover:hover": {
+            backgroundColor: "#444444",
+          },
+        },
+      },
+    },
   },
 });
 

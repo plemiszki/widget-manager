@@ -42,6 +42,17 @@ const lightTheme = createTheme(baseTheme, {
       color: "#D32F2F",
     },
   },
+  components: {
+    MuiTableHead: {
+      styleOverrides: {
+        root: {
+          th: {
+            color: "black",
+          },
+        },
+      },
+    },
+  },
 });
 
 export default lightTheme;

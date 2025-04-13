@@ -93,16 +93,8 @@ function WidgetsIndex() {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell>
-                  <Typography variant="bold" color="black">
-                    Name
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="bold" color="black">
-                    Age
-                  </Typography>
-                </TableCell>
+                <TableCell>Name</TableCell>
+                <TableCell>Age</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
