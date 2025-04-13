@@ -75,19 +75,17 @@ function WidgetsIndex() {
             <Button
               variant="contained"
               onClick={() => setDialogOpen(true)}
-              sx={{ textTransform: "none" }}
               startIcon={<Add />}
             >
-              <Typography variant="bold">Add Widget</Typography>
+              Add Widget
             </Button>
             <Button
               color="error"
               variant="contained"
               onClick={() => mutateAsyncDeleteSession()}
-              sx={{ textTransform: "none" }}
               startIcon={<Logout />}
             >
-              <Typography variant="bold">Sign Out</Typography>
+              Sign Out
             </Button>
           </Stack>
         </Stack>

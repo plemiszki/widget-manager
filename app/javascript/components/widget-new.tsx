@@ -82,9 +82,8 @@ function WidgetNew({
           variant="contained"
           onClick={() => mutateAsyncCreate({ name, age })}
           disabled={createWidgetPending}
-          sx={{ textTransform: "none" }}
         >
-          <Typography variant="bold">Add Widget</Typography>
+          Add Widget
         </Button>
       </DialogActions>
     </Dialog>

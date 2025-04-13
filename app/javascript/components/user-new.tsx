@@ -72,9 +72,6 @@ function UserNew() {
               color="primary"
               variant="contained"
               onClick={() => mutateAsync({ email, password })}
-              sx={{
-                textTransform: "none",
-              }}
             >
               Sign up
             </Button>

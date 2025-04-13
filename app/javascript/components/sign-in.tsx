@@ -75,11 +75,8 @@ function SignIn() {
               onClick={() => {
                 mutateAsync({ email, password });
               }}
-              sx={{
-                textTransform: "none",
-              }}
             >
-              <Typography variant="bold">Sign in</Typography>
+              Sign in
             </Button>
             <Link
               component={RouterLink}

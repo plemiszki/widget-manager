@@ -21,6 +21,7 @@ import useDeleteWidget from "../api/deleteWidget";
 import useUpdateWidget from "../api/updateWidget";
 import FieldText from "./library/field-text";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { Delete } from "@mui/icons-material";
 
 function WidgetDetails() {
   const navigate = useNavigate();
@@ -127,9 +128,9 @@ function WidgetDetails() {
           <IconButton onClick={() => navigate("/widgets")}>
             <ArrowBackIcon />
           </IconButton>
-          <Typography>Widget Details</Typography>
+          <Typography variant="h1">Widget Details</Typography>
         </Stack>
-        <Paper sx={{ p: 2 }}>
+        <Paper sx={{ p: 3 }}>
           <Stack spacing={1}>
             <FieldText
               label="Name"
@@ -147,7 +148,7 @@ function WidgetDetails() {
             />
           </Stack>
         </Paper>
-        <Stack direction="row" spacing={2}>
+        <Stack direction="row" spacing={2} justifyContent="space-between">
           <Button
             color="primary"
             variant="contained"
@@ -155,6 +156,7 @@ function WidgetDetails() {
               mutateAsyncUpdate({ id, name, age });
             }}
             disabled={!hasChanges}
+            sx={{ width: 122 }}
           >
             {hasChanges ? "Save" : justSaved ? "Saved" : "No Changes"}
           </Button>
@@ -162,6 +164,7 @@ function WidgetDetails() {
             color="error"
             variant="contained"
             onClick={() => setDeleteModalOpen(true)}
+            startIcon={<Delete />}
           >
             Delete
           </Button>
@@ -170,9 +173,11 @@ function WidgetDetails() {
           open={deleteModalOpen}
           onClose={() => setDeleteModalOpen(false)}
         >
-          <DialogTitle>Do you really want to delete this widget?</DialogTitle>
+          <DialogTitle>Confirm Delete</DialogTitle>
           <DialogContent>
-            <DialogContentText>This action cannot be undone.</DialogContentText>
+            <DialogContentText>
+              Do you really want to delete this widget?
+            </DialogContentText>
           </DialogContent>
           <DialogActions>
             <Button

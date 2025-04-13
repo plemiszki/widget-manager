@@ -22,9 +22,6 @@ function NotFound() {
               color="primary"
               variant="contained"
               onClick={() => navigate("/widgets")}
-              sx={{
-                textTransform: "none",
-              }}
             >
               Home
             </Button>
