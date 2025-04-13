@@ -1,6 +1,7 @@
 import { createTheme } from "@mui/material";
+import baseTheme from "./base";
 
-const darkTheme = createTheme({
+const darkTheme = createTheme(baseTheme, {
   palette: {
     background: {
       default: "#121212",
@@ -13,21 +14,12 @@ const darkTheme = createTheme({
   },
   typography: {
     h1: {
-      fontSize: "1.5rem",
-      fontWeight: 600,
       color: "#e0e0e0",
     },
     h6: {
-      fontSize: "0.9rem",
-      fontWeight: 600,
       color: "#e0e0e0",
     },
-    bold: {
-      fontWeight: 700,
-    },
     error: {
-      fontSize: 14,
-      fontWeight: 500,
       color: "#ff6b6b",
     },
   },
