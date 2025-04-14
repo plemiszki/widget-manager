@@ -24,6 +24,23 @@ const darkTheme = createTheme(baseTheme, {
     },
   },
   components: {
+    MuiIconButton: {
+      styleOverrides: {
+        root: {
+          color: "white",
+        },
+      },
+    },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          "&.Mui-disabled": {
+            backgroundColor: "#424242",
+            color: "black",
+          },
+        },
+      },
+    },
     MuiTextField: {
       styleOverrides: {
         root: {
