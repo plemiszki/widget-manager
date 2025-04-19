@@ -5,14 +5,14 @@ describe 'user', type: :feature do
   let(:user) { User.create!(email_address: 'test@example.com', password: 'password') }
 
   it 'signs in' do
-    visit widgets_path
-    expect(page).to have_content('Sign In')
+    visit '/widgets'
+    expect(page).to have_content('Sign in')
     email_field, password_field = find_all('input')
 
     email_field.set(user.email_address)
     password_field.set(user.password)
 
-    sign_in_button = find('button', text: "SIGN IN")
+    sign_in_button = find('button', text: "Sign in")
     sign_in_button.click
 
     expect(page).to have_current_path('/widgets')
@@ -20,23 +20,23 @@ describe 'user', type: :feature do
   end
 
   it 'signs out' do
-    visit authenticated_path(widgets_path, user)
+    visit authenticated_path('/widgets', user)
     expect(page).to have_button('Sign Out')
-    sign_out_button = find('button', text: "SIGN OUT")
+    sign_out_button = find('button', text: "Sign Out")
     sign_out_button.click
 
-    expect(page).to have_content('Sign In')
+    expect(page).to have_content('Sign in')
   end
 
   it 'signs up' do
     visit new_user_path
-    expect(page).to have_content('Sign Up')
+    expect(page).to have_content('Sign up')
 
     email_field, password_field = find_all('input')
     email_field.set("user@domain.com")
     password_field.set("password")
 
-    sign_up_button = find('button', text: 'CREATE ACCOUNT')
+    sign_up_button = find('button', text: 'Sign up')
     sign_up_button.click
     expect(page).to have_no_css("div[data-test='spinner']")
 
@@ -49,9 +49,9 @@ describe 'user', type: :feature do
 
   it 'validates the presence of an email address and password' do
     visit new_user_path
-    expect(page).to have_content('Sign Up')
+    expect(page).to have_content('Sign up')
 
-    sign_up_button = find('button', text: 'CREATE ACCOUNT')
+    sign_up_button = find('button', text: 'Sign up')
     sign_up_button.click
     expect(page).to have_no_css("div[data-test='spinner']")
 
@@ -65,13 +65,13 @@ describe 'user', type: :feature do
     User.create!(email_address: "user@domain.com", password: "password")
 
     visit new_user_path
-    expect(page).to have_content('Sign Up')
+    expect(page).to have_content('Sign up')
 
     email_field, password_field = find_all('input')
     email_field.set("user@domain.com")
     password_field.set("password")
 
-    sign_up_button = find('button', text: 'CREATE ACCOUNT')
+    sign_up_button = find('button', text: 'Sign up')
     sign_up_button.click
     expect(page).to have_no_css("div[data-test='spinner']")
 
@@ -82,13 +82,13 @@ describe 'user', type: :feature do
 
   it 'validates password length' do
     visit new_user_path
-    expect(page).to have_content('Sign Up')
+    expect(page).to have_content('Sign up')
 
     email_field, password_field = find_all('input')
     email_field.set("user@domain.com")
     password_field.set("passwor")
 
-    sign_up_button = find('button', text: 'CREATE ACCOUNT')
+    sign_up_button = find('button', text: 'Sign up')
     sign_up_button.click
     expect(page).to have_no_css("div[data-test='spinner']")
 
@@ -99,13 +99,13 @@ describe 'user', type: :feature do
 
   it 'validates email address' do
     visit new_user_path
-    expect(page).to have_content('Sign Up')
+    expect(page).to have_content('Sign up')
 
     email_field, password_field = find_all('input')
     email_field.set("user@domain.")
     password_field.set("password")
 
-    sign_up_button = find('button', text: 'CREATE ACCOUNT')
+    sign_up_button = find('button', text: 'Sign up')
     sign_up_button.click
     expect(page).to have_no_css("div[data-test='spinner']")
 

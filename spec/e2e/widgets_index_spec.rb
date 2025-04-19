@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 def open_dialog
-  add_button = find('button', text: "ADD WIDGET")
+  add_button = find('button', text: "Add Widget")
   add_button.click
 
   within('div[role="dialog"]') do
@@ -14,25 +14,25 @@ describe 'widgets_index', type: :feature do
   let(:user) { User.create!(email_address: 'test@example.com', password: 'password') }
 
   it 'is gated' do
-    visit widgets_path
-    expect(page).to have_content('Sign In')
+    visit '/widgets'
+    expect(page).to have_content('Sign in')
   end
 
   it 'displays a list of widgets' do
     Widget.create!(name: "Test Widget", age: 22)
-    visit authenticated_path(widgets_path, user)
+    visit authenticated_path('/widgets', user)
     expect(page).to have_content 'Test Widget'
     expect(page).to have_content '22'
   end
 
   it 'creates a new widget' do
-    visit authenticated_path(widgets_path, user)
+    visit authenticated_path('/widgets', user)
     open_dialog
 
     name_field, age_field = find_all('input')
     name_field.set('name')
     age_field.set('16')
-    add_button = find('button', text: /^ADD$/)
+    add_button = within ('.MuiDialog-container') { find('button', text: 'Add Widget') }
     add_button.click
 
     expect(page).not_to have_content('div[role="dialog"]')
@@ -45,13 +45,13 @@ describe 'widgets_index', type: :feature do
   end
 
   it 'validates the presence of the widget name' do
-    visit authenticated_path(widgets_path, user)
+    visit authenticated_path('/widgets', user)
     open_dialog
 
     name_field, age_field = find_all('input')
     name_field.set('')
     age_field.set('16')
-    add_button = find('button', text: /^ADD$/)
+    add_button = within ('.MuiDialog-container') { find('button', text: 'Add Widget') }
     add_button.click
 
     expect(page).to have_content("Name can't be blank")
@@ -60,13 +60,13 @@ describe 'widgets_index', type: :feature do
 
   it 'validates the uniqueness of the widget name' do
     Widget.create!(name: 'name', age: 1)
-    visit authenticated_path(widgets_path, user)
+    visit authenticated_path('/widgets', user)
     open_dialog
 
     name_field, age_field = find_all('input')
     name_field.set('name')
     age_field.set('16')
-    add_button = find('button', text: /^ADD$/)
+    add_button = within ('.MuiDialog-container') { find('button', text: 'Add Widget') }
     add_button.click
 
     expect(page).to have_content("Name has already been taken")
@@ -74,13 +74,13 @@ describe 'widgets_index', type: :feature do
   end
 
   it 'validates the numericality of the widget age' do
-    visit authenticated_path(widgets_path, user)
+    visit authenticated_path('/widgets', user)
     open_dialog
 
     name_field, age_field = find_all('input')
     name_field.set('name')
     age_field.set('age')
-    add_button = find('button', text: /^ADD$/)
+    add_button = within ('.MuiDialog-container') { find('button', text: 'Add Widget') }
     add_button.click
 
     expect(page).to have_content("Age is not a number")
@@ -88,13 +88,13 @@ describe 'widgets_index', type: :feature do
   end
 
   it 'validates the widget age is an integer' do
-    visit authenticated_path(widgets_path, user)
+    visit authenticated_path('/widgets', user)
     open_dialog
 
     name_field, age_field = find_all('input')
     name_field.set('name')
     age_field.set('4.5')
-    add_button = find('button', text: /^ADD$/)
+    add_button = within ('.MuiDialog-container') { find('button', text: 'Add Widget') }
     add_button.click
 
     expect(page).to have_content("Age must be an integer")
@@ -102,13 +102,13 @@ describe 'widgets_index', type: :feature do
   end
 
   it 'validates the widget age is greater than zero' do
-    visit authenticated_path(widgets_path, user)
+    visit authenticated_path('/widgets', user)
     open_dialog
 
     name_field, age_field = find_all('input')
     name_field.set('name')
     age_field.set('-1')
-    add_button = find('button', text: /^ADD$/)
+    add_button = within ('.MuiDialog-container') { find('button', text: 'Add Widget') }
     add_button.click
 
     expect(page).to have_content("Age must be greater than 0")

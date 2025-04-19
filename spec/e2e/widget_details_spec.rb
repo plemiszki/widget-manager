@@ -6,13 +6,13 @@ describe 'widget_details', type: :feature do
 
   it 'is gated' do
     widget = Widget.create!(name: "Test Widget", age: 22)
-    visit widget_path(widget)
-    expect(page).to have_content('Sign In')
+    visit "/widgets/#{widget.id}"
+    expect(page).to have_content('Sign in')
   end
 
   it 'displays details about the widget' do
     widget = Widget.create!(name: "Test Widget", age: 22)
-    visit authenticated_path(widget_path(widget), user)
+    visit authenticated_path("/widgets/#{widget.id}", user)
     name_field, age_field = find_all('input')
 
     expect(name_field[:value]).to eq('Test Widget')
@@ -21,12 +21,12 @@ describe 'widget_details', type: :feature do
 
   it 'updates the widget' do
     widget = Widget.create!(name: "Test Widget", age: 22)
-    visit authenticated_path(widget_path(widget), user)
+    visit authenticated_path("/widgets/#{widget.id}", user)
     name_field, age_field = find_all('input')
 
     name_field.set('updated name')
     age_field.set('40')
-    save_button = find('button', text: 'SAVE')
+    save_button = find('button', text: 'Save')
     save_button.click
 
     expect(page).to have_no_css("div[data-test='spinner']")
@@ -37,11 +37,11 @@ describe 'widget_details', type: :feature do
 
   it 'validates the presence of the widget name' do
     widget = Widget.create!(name: "Test Widget", age: 22)
-    visit authenticated_path(widget_path(widget), user)
+    visit authenticated_path("/widgets/#{widget.id}", user)
     name_field = find_all('input')[0]
 
     name_field.set(' ')
-    save_button = find('button', text: 'SAVE')
+    save_button = find('button', text: 'Save')
     save_button.click
 
     expect(page).to have_no_css("div[data-test='spinner']")
@@ -53,11 +53,11 @@ describe 'widget_details', type: :feature do
   it 'validates the uniqueness of the widget name' do
     Widget.create!(name: "Existing Name", age: 22)
     widget = Widget.create!(name: "Test Widget", age: 22)
-    visit authenticated_path(widget_path(widget), user)
+    visit authenticated_path("/widgets/#{widget.id}", user)
     name_field = find_all('input')[0]
 
     name_field.set('Existing Name')
-    save_button = find('button', text: 'SAVE')
+    save_button = find('button', text: 'Save')
     save_button.click
 
     expect(page).to have_no_css("div[data-test='spinner']")
@@ -68,11 +68,11 @@ describe 'widget_details', type: :feature do
 
   it 'validates the numericality of the widget age' do
     widget = Widget.create!(name: "Test Widget", age: 22)
-    visit authenticated_path(widget_path(widget), user)
+    visit authenticated_path("/widgets/#{widget.id}", user)
     name_field, age_field = find_all('input')
 
     age_field.set('asdf')
-    save_button = find('button', text: 'SAVE')
+    save_button = find('button', text: 'Save')
     save_button.click
 
     expect(page).to have_no_css("div[data-test='spinner']")
@@ -83,11 +83,11 @@ describe 'widget_details', type: :feature do
 
   it 'validates the widget age is an integer' do
     widget = Widget.create!(name: "Test Widget", age: 22)
-    visit authenticated_path(widget_path(widget), user)
+    visit authenticated_path("/widgets/#{widget.id}", user)
     name_field, age_field = find_all('input')
 
     age_field.set('3.4')
-    save_button = find('button', text: 'SAVE')
+    save_button = find('button', text: 'Save')
     save_button.click
 
     expect(page).to have_no_css("div[data-test='spinner']")
@@ -98,11 +98,11 @@ describe 'widget_details', type: :feature do
 
   it 'validates the widget age is greater than zero' do
     widget = Widget.create!(name: "Test Widget", age: 22)
-    visit authenticated_path(widget_path(widget), user)
+    visit authenticated_path("/widgets/#{widget.id}", user)
     name_field, age_field = find_all('input')
 
     age_field.set('-1')
-    save_button = find('button', text: 'SAVE')
+    save_button = find('button', text: 'Save')
     save_button.click
 
     expect(page).to have_no_css("div[data-test='spinner']")
@@ -113,10 +113,10 @@ describe 'widget_details', type: :feature do
 
   it 'deletes the widget' do
     widget = Widget.create!(name: "Test Widget", age: 22)
-    visit authenticated_path(widget_path(widget), user)
-    delete_button = find('button', text: 'DELETE')
+    visit authenticated_path("/widgets/#{widget.id}", user)
+    delete_button = find('button', text: 'Delete')
     delete_button.click
-    confirm_button = find('button', text: 'YES')
+    confirm_button = find('button', text: 'Yes')
     confirm_button.click
 
     expect(page).to have_current_path("/widgets")
